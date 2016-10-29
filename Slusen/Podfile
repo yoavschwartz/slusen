@@ -10,6 +10,7 @@ target 'Slusen' do
     pod 'Alamofire'
     pod 'MBProgressHUD'
     pod 'SwiftyJSON'
+    pod 'Firebase/Core'
 
   # Pods for Slusen
 
