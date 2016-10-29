@@ -34,7 +34,7 @@ class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let viewModel = OnboardingViewModel(nameObservable: nameTextField.rx.text)
+        let viewModel = OnboardingViewModel(nameObservable: nameTextField.rx.text.orEmpty.asObservable())
 
         viewModel.startButtonEnabledDriver
             .drive(startButton.rx.isEnabled)

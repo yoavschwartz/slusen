@@ -15,11 +15,8 @@ struct OnboardingViewModel {
 
     private let disposeBag = DisposeBag()
 
-    init(nameObservable: (ControlProperty<String?>)) {
+    init(nameObservable: (Observable<String>)) {
         self.startButtonEnabledDriver = nameObservable.asDriver(onErrorJustReturn: "")
-            .map {
-                guard let str = $0 else { return false }
-                return !str.isEmpty
-        }
+            .map { return !$0.isEmpty }
     }
 }
