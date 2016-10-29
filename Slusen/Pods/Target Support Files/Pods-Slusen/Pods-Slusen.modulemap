@@ -1,0 +1,6 @@
+framework module Pods_Slusen {
+  umbrella header "Pods-Slusen-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,21 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55E7D0BF1FE8F853DDF18E50 /* Pods_Slusen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D868AFD4D60F16689461E2 /* Pods_Slusen.framework */; };
 		E5543F221DC4B84800CB2FD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */; };
-		E5543F241DC4B84800CB2FD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F231DC4B84800CB2FD0 /* ViewController.swift */; };
+		E5543F241DC4B84800CB2FD0 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F231DC4B84800CB2FD0 /* OrderViewController.swift */; };
 		E5543F271DC4B84800CB2FD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5543F251DC4B84800CB2FD0 /* Main.storyboard */; };
 		E5543F291DC4B84800CB2FD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5543F281DC4B84800CB2FD0 /* Assets.xcassets */; };
 		E5543F2C1DC4B84800CB2FD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5543F2A1DC4B84800CB2FD0 /* LaunchScreen.storyboard */; };
+		E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F331DC4CCE400CB2FD0 /* OnboardingViewController.swift */; };
+		E5543F381DC4CE6300CB2FD0 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F371DC4CE6300CB2FD0 /* OnboardingViewModel.swift */; };
+		E5543F3B1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26D868AFD4D60F16689461E2 /* Pods_Slusen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Slusen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF9F7CF00478819C9B1F665F /* Pods-Slusen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slusen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Slusen/Pods-Slusen.debug.xcconfig"; sourceTree = "<group>"; };
+		E46E08A96246A493160729EC /* Pods-Slusen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slusen.release.xcconfig"; path = "Pods/Target Support Files/Pods-Slusen/Pods-Slusen.release.xcconfig"; sourceTree = "<group>"; };
 		E5543F1E1DC4B84800CB2FD0 /* Slusen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slusen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E5543F231DC4B84800CB2FD0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E5543F231DC4B84800CB2FD0 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		E5543F261DC4B84800CB2FD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E5543F281DC4B84800CB2FD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5543F2B1DC4B84800CB2FD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5543F2D1DC4B84800CB2FD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5543F331DC4CCE400CB2FD0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		E5543F371DC4CE6300CB2FD0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardHelperMethods.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +39,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E7D0BF1FE8F853DDF18E50 /* Pods_Slusen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		391EDEF7459ACDD5D0999CE7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26D868AFD4D60F16689461E2 /* Pods_Slusen.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A619748711ABB499C9A2BBDF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF9F7CF00478819C9B1F665F /* Pods-Slusen.debug.xcconfig */,
+				E46E08A96246A493160729EC /* Pods-Slusen.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E5543F151DC4B84800CB2FD0 = {
 			isa = PBXGroup;
 			children = (
 				E5543F201DC4B84800CB2FD0 /* Slusen */,
-				E5543F1F1DC4B84800CB2FD0 /* Products */,
+				A619748711ABB499C9A2BBDF /* Pods */,
+				391EDEF7459ACDD5D0999CE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,19 +78,40 @@
 				E5543F1E1DC4B84800CB2FD0 /* Slusen.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E5543F201DC4B84800CB2FD0 /* Slusen */ = {
 			isa = PBXGroup;
 			children = (
 				E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */,
-				E5543F231DC4B84800CB2FD0 /* ViewController.swift */,
+				E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */,
+				E5543F1F1DC4B84800CB2FD0 /* Products */,
+				E5543F351DC4CE2B00CB2FD0 /* OrderViewController */,
 				E5543F251DC4B84800CB2FD0 /* Main.storyboard */,
+				E5543F361DC4CE3700CB2FD0 /* Onboarding */,
 				E5543F281DC4B84800CB2FD0 /* Assets.xcassets */,
 				E5543F2A1DC4B84800CB2FD0 /* LaunchScreen.storyboard */,
 				E5543F2D1DC4B84800CB2FD0 /* Info.plist */,
 			);
 			path = Slusen;
+			sourceTree = "<group>";
+		};
+		E5543F351DC4CE2B00CB2FD0 /* OrderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E5543F231DC4B84800CB2FD0 /* OrderViewController.swift */,
+			);
+			name = OrderViewController;
+			sourceTree = "<group>";
+		};
+		E5543F361DC4CE3700CB2FD0 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E5543F331DC4CCE400CB2FD0 /* OnboardingViewController.swift */,
+				E5543F371DC4CE6300CB2FD0 /* OnboardingViewModel.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +121,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5543F301DC4B84800CB2FD0 /* Build configuration list for PBXNativeTarget "Slusen" */;
 			buildPhases = (
+				FDA352E5F87C3B0E79605B10 /* [CP] Check Pods Manifest.lock */,
 				E5543F1A1DC4B84800CB2FD0 /* Sources */,
 				E5543F1B1DC4B84800CB2FD0 /* Frameworks */,
 				E5543F1C1DC4B84800CB2FD0 /* Resources */,
+				6250397A412C6439558F06DC /* [CP] Embed Pods Frameworks */,
+				0DFF221E7EB42CBF8FE7FD52 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,13 +185,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0DFF221E7EB42CBF8FE7FD52 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Slusen/Pods-Slusen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6250397A412C6439558F06DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Slusen/Pods-Slusen-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FDA352E5F87C3B0E79605B10 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E5543F1A1DC4B84800CB2FD0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5543F241DC4B84800CB2FD0 /* ViewController.swift in Sources */,
+				E5543F241DC4B84800CB2FD0 /* OrderViewController.swift in Sources */,
+				E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */,
+				E5543F3B1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift in Sources */,
 				E5543F221DC4B84800CB2FD0 /* AppDelegate.swift in Sources */,
+				E5543F381DC4CE6300CB2FD0 /* OnboardingViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,12 +361,13 @@
 		};
 		E5543F311DC4B84800CB2FD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF9F7CF00478819C9B1F665F /* Pods-Slusen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R8F453AF24;
 				INFOPLIST_FILE = Slusen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.Slusen;
+				PRODUCT_BUNDLE_IDENTIFIER = dk.slusen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -270,12 +375,13 @@
 		};
 		E5543F321DC4B84800CB2FD0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E46E08A96246A493160729EC /* Pods-Slusen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = R8F453AF24;
 				INFOPLIST_FILE = Slusen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.Slusen;
+				PRODUCT_BUNDLE_IDENTIFIER = dk.slusen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -300,6 +406,7 @@
 				E5543F321DC4B84800CB2FD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

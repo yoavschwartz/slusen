@@ -1,14 +1,101 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pwg-ke-1vP">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="f5i-qV-g2c">
+            <objects>
+                <navigationController id="pwg-ke-1vP" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3yd-3W-3yF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dHG-Qb-iVa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rz8-Hj-Msr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-169" y="116"/>
+        </scene>
+        <!--Onboarding View Controller-->
+        <scene sceneID="gTf-VW-Sab">
+            <objects>
+                <viewController storyboardIdentifier="OnboardingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qhk-K9-b8d" customClass="OnboardingViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lcR-G9-fpr"/>
+                        <viewControllerLayoutGuide type="bottom" id="4ip-2f-eee"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ocf-pF-UoR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slusen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-rC-yio"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We help you buy your drinks from the bar without standing in line" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7FR-6b-Q0x">
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="W3M-SK-acP">
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your full name here..." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLC-WC-V5J">
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bsl-uj-JGR">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="McW-h9-qbI"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is visible to bartenders when you order" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OlQ-fB-uZF">
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.4823529411764706" green="0.0039215686274509803" blue="0.023529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3X-Ac-Nxt">
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Let's Order">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.10980392156862745" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="W3M-SK-acP" firstAttribute="leading" secondItem="Ocf-pF-UoR" secondAttribute="leadingMargin" constant="24" id="G6M-gM-xwd"/>
+                            <constraint firstAttribute="trailing" secondItem="jEi-rC-yio" secondAttribute="trailing" id="KqJ-eN-xJN"/>
+                            <constraint firstItem="w3X-Ac-Nxt" firstAttribute="centerX" secondItem="Ocf-pF-UoR" secondAttribute="centerX" id="V0M-4G-cac"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="W3M-SK-acP" secondAttribute="trailing" constant="24" id="Ycl-ro-exG"/>
+                            <constraint firstItem="W3M-SK-acP" firstAttribute="top" secondItem="7FR-6b-Q0x" secondAttribute="bottom" constant="64" id="dug-xt-cE6"/>
+                            <constraint firstItem="4ip-2f-eee" firstAttribute="top" secondItem="w3X-Ac-Nxt" secondAttribute="bottom" constant="20" id="iNy-XQ-nE7"/>
+                            <constraint firstItem="7FR-6b-Q0x" firstAttribute="top" secondItem="jEi-rC-yio" secondAttribute="bottom" constant="64" id="opI-UN-c06"/>
+                            <constraint firstItem="7FR-6b-Q0x" firstAttribute="leading" secondItem="Ocf-pF-UoR" secondAttribute="leadingMargin" constant="24" id="rAM-gR-3JH"/>
+                            <constraint firstItem="jEi-rC-yio" firstAttribute="leading" secondItem="Ocf-pF-UoR" secondAttribute="leading" id="tC2-b6-Pqc"/>
+                            <constraint firstItem="jEi-rC-yio" firstAttribute="top" secondItem="lcR-G9-fpr" secondAttribute="bottom" constant="32" id="u7B-ll-fF4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7FR-6b-Q0x" secondAttribute="trailing" constant="24" id="x2a-dY-pT4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="MLC-WC-V5J" id="hD8-mM-DVa"/>
+                        <outlet property="startButton" destination="w3X-Ac-Nxt" id="sWK-eL-Vw3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZDM-MT-qvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="597.60000000000002" y="-591.45427286356824"/>
+        </scene>
+        <!--Order View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="OrderViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,9 +105,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="WVg-Dg-RfT"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="598" y="116"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="slusen_logo" width="375" height="81"/>
+    </resources>
 </document>
