@@ -30,8 +30,9 @@ class ProductTableViewCell: UITableViewCell {
 
     var disposeBag = DisposeBag()
 
-    func setup(product: Product, indexPath: IndexPath) {
-        let viewModel = ProductTableViewCellViewModel(product: product, indexPath: indexPath, stepperValue: amountStepper.rx.value.asObservable())
+    func setup(viewModel: ProductCellViewModel) {
+
+        viewModel.bindStepper(stepperValue: amountStepper.rx.value.asObservable())
 
         viewModel.productName
             .drive(productNameLabel.rx.text)
@@ -48,6 +49,7 @@ class ProductTableViewCell: UITableViewCell {
         viewModel.backgroundColor.drive(onNext: { [weak self] bgColor in
             self?.backgroundColor = bgColor
         }).addDisposableTo(disposeBag)
+
     }
 
     override func prepareForReuse() {

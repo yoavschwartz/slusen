@@ -13,18 +13,19 @@ import RxCocoa
 class OrderViewController: UIViewController {
 
 
+    @IBOutlet var tableView: UITableView!
+
     let disposeBag = DisposeBag()
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let products = serverManager.getProducts().subscribe(onNext: { products in
-            print(products)
-            }) { err in
-                print(err)
-        }.addDisposableTo(disposeBag)
+        let viewModel = OrderViewModel()
 
+        viewModel.productViewModels.drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: ProductTableViewCell.self)) { row, vm, cell in
+            cell.setup(viewModel: vm)
+        }.addDisposableTo(disposeBag)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
