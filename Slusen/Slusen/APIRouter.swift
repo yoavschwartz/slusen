@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-enum APIRouter: URLRequestConvertible, URLConvertible {
+enum APIRouter: URLRequestConvertible, URLConvertible, CustomStringConvertible {
     static let baseURLString: String = "http://www.tritian.com/p3/api"
 
     case getProducts
@@ -45,4 +45,8 @@ enum APIRouter: URLRequestConvertible, URLConvertible {
         return URL(string: APIRouter.baseURLString)!.appendingPathComponent(result.path)
     }
     // swiftlint:enable variable_name
+    var description: String {
+        return "HTTPMethod: \(method), URL: \(try! asURL())"
+    }
+
 }
