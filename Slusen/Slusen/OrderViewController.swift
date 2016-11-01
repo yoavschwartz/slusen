@@ -7,18 +7,31 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class OrderViewController: UIViewController {
 
+
+    let disposeBag = DisposeBag()
+    var serverManager: ServerInterface = ServerManager.sharedInstance
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let products = serverManager.getProducts().subscribe(onNext: { products in
+            print(products)
+            }) { err in
+                print(err)
+        }.addDisposableTo(disposeBag)
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let onboardingVC = OnboardingViewController.initViewController(delegate: self)
-        present(onboardingVC, animated: true, completion: nil)
+        //let onboardingVC = OnboardingViewController.initViewController(delegate: self)
+        //present(onboardingVC, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

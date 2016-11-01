@@ -95,7 +95,7 @@
         <!--Order View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="OrderViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="OrderViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -106,11 +106,6 @@
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="p9q-Tp-Gae">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DiX-CG-ZOK">
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-i9-NSr">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <view key="tableHeaderView" contentMode="scaleToFill" id="pv3-hO-fTi">
@@ -130,11 +125,11 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wsx-ra-S2Z">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="productCell" id="wsx-ra-S2Z" customClass="ProductTableViewCell" customModule="Slusen" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="72" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wsx-ra-S2Z" id="lzK-UR-eEv">
-                                                    <frame key="frameInset" width="375" height="59"/>
+                                                    <frame key="frameInset" width="375" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="93l-1S-d7c">
@@ -174,6 +169,12 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" red="0.3803921569" green="0.3803921569" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <outlet property="amountStepper" destination="KY6-aR-uN4" id="GV3-S1-8G5"/>
+                                                    <outlet property="productAmountLabel" destination="jKB-tH-sX9" id="cqB-5J-MZA"/>
+                                                    <outlet property="productNameLabel" destination="AJY-jW-d8Y" id="zlM-PX-F48"/>
+                                                    <outlet property="productPriceLabel" destination="LXy-mC-dap" id="Nzc-XQ-Tn4"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -183,9 +184,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="p9q-Tp-Gae" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3ae-wM-Dif"/>
-                            <constraint firstItem="p9q-Tp-Gae" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="IbW-zc-hST"/>
                             <constraint firstAttribute="trailing" secondItem="p9q-Tp-Gae" secondAttribute="trailing" id="STm-ee-iDe"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="p9q-Tp-Gae" secondAttribute="bottom" id="gfx-P1-cCe"/>
+                            <constraint firstItem="JPg-i9-NSr" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="qFa-KT-YEf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WVg-Dg-RfT"/>

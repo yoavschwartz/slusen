@@ -13,10 +13,15 @@ import RxAlamofire
 
 
 protocol ServerInterface {
-
+    func getProducts() -> Observable<[Product]>
 }
 
-class ServerManager {
+class ServerManager: ServerInterface {
+
+    static let sharedInstance = ServerManager()
+
+    let disposeBag = DisposeBag()
+
     func getProducts() -> Observable<[Product]> {
         return requestJSON(router: APIRouter.getProducts).map { (urlResponse, jsonData) -> [Product] in
             guard let json = jsonData as? [String: Any],
