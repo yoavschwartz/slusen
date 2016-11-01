@@ -15,17 +15,21 @@ class OrderViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
 
+    var viewModel = OrderViewModel()
+
     let disposeBag = DisposeBag()
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewModel = OrderViewModel()
+        //let viewModel = OrderViewModel()
 
         viewModel.productViewModels.drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: ProductTableViewCell.self)) { row, vm, cell in
             cell.setup(viewModel: vm)
         }.addDisposableTo(disposeBag)
+
+        let _ = viewModel.order.debug()
         // Do any additional setup after loading the view, typically from a nib.
     }
 

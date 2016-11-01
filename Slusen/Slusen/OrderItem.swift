@@ -12,3 +12,10 @@ struct OrderItem {
     let product: Product
     let amount: Int
 }
+
+extension OrderItem: Equatable {}
+
+func == (lhs: OrderItem, rhs: OrderItem) -> Bool {
+    return lhs.product == rhs.product &&
+        lhs.amount == rhs.amount
+}

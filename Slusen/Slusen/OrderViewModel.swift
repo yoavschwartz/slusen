@@ -18,6 +18,8 @@ struct OrderViewModel {
     let order: Driver<Order>
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
+    let disposeBag = DisposeBag()
+
     init() {
         self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
         self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
@@ -26,10 +28,15 @@ struct OrderViewModel {
             }
         }
 
-        order = productViewModels.map { (viewModels: [ProductCellViewModel]) -> Order in
-            let orderItemDrivers: [Driver<OrderItem>] = viewModels.map{ $0.orderItem }
-//TODO:
+        order = productViewModels
+            .flatMap { viewModels -> Driver<[OrderItem]> in
+            let orderItems: [Driver<OrderItem>] = viewModels.map { $0.orderItem }
+                return Driver.combineLatest(orderItems) { $0 }
         }
+            .map{ orderItems in orderItems.filter {$0.amount > 0} }
+            .distinctUntilChanged { $0 == $1 }
+
+
     }
 
 }

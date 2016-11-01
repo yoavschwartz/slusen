@@ -19,3 +19,11 @@ struct Product: JSONDecodable {
         self.priceInCents = json["price"] as! Int
     }
 }
+
+extension Product: Equatable {}
+
+func == (lhs: Product, rhs: Product) -> Bool {
+    return lhs.id == rhs.id &&
+    lhs.name == rhs.name &&
+    lhs.priceInCents == rhs.priceInCents
+}
