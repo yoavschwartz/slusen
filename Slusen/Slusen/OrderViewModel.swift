@@ -12,15 +12,27 @@ import RxCocoa
 
 typealias Order = [OrderItem]
 
-struct OrderViewModel {
+let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
+    let formatter = NumberFormatter()
+    formatter.currencyCode = "DKK"
+    formatter.numberStyle = .currency
+    formatter.locale = Locale(identifier: "da-DK")
+    return formatter
+}()
+
+class OrderViewModel {
     fileprivate let products: Driver<[Product]>
-    let productViewModels: Driver<[ProductCellViewModel]>
-    let order: Driver<Order>
+    fileprivate let order: Driver<Order>
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
-    let disposeBag = DisposeBag()
+    let productViewModels: Driver<[ProductCellViewModel]>
+    let showOrderButton: Driver<Bool>
+    let buttonPriceLabelText: Driver<String>
 
-    init() {
+
+    private let disposeBag = DisposeBag()
+
+    init(orderButtonTap: Observable<Void>) {
         self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
         self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
@@ -35,6 +47,21 @@ struct OrderViewModel {
         }
             .map{ orderItems in orderItems.filter {$0.amount > 0} }
             .distinctUntilChanged { $0 == $1 }
+
+        showOrderButton = order
+            .map { orderItems in
+                orderItems.map { $0.amount }.reduce(0, +)
+            }.map {
+                $0 > 0
+        }
+
+        buttonPriceLabelText = order
+            .map { orderItems -> Int in
+            let prices = orderItems.map { $0.product.priceInCents }
+            let amounts = orderItems.map { $0.amount }
+            return zip(prices, amounts).map { $0.0 * $0.1 }.reduce(0, +)
+            }.map { NSNumber(value: Double($0)/100.0)}
+            .map({ priceFormatter.string(from: $0)!})
 
 
     }
