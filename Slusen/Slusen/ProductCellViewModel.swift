@@ -45,9 +45,8 @@ class ProductCellViewModel {
 
     }
 
-    func bindStepper(stepperValue: Observable<Double>) {
+    func bindStepper(stepperValue: Observable<Int>) {
         stepperValue.asDriver(onErrorJustReturn: 0)
-            .map(Int.init)
             .drive(_productAmount)
             .addDisposableTo(disposeBag)
     }
