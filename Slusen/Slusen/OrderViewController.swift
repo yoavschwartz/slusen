@@ -49,16 +49,24 @@ class OrderViewController: UIViewController {
             let activeOrdersTableviewTopViewHeight: CGFloat = 20
             let bottomPaddingHeight: CGFloat = 20
             return (CGFloat(numberOfActiveOrders) * activeOrderCellHeight) + activeOrdersTableviewTopViewHeight + bottomPaddingHeight
-        }.drive(activeOrdersTableViewHeightConstraint.rx.constant)
+            }.drive(onNext: { [unowned self] height in
+                self.activeOrdersTableViewHeightConstraint.constant = height
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.layoutIfNeeded()
+                })
+            })
             .addDisposableTo(disposeBag)
-
 
         viewModel.showActiveOrdersTable
-            .map {
-                !$0
-            }
-            .drive(activeOrdersTableView.rx.isHidden)
+            .map {!$0}
+            .drive(onNext: { [unowned self] show in
+                UIView.animate(withDuration: 0.3){
+                    self.activeOrdersTableView.isHidden = show //or false
+                }
+            })
             .addDisposableTo(disposeBag)
+
+
 
 
 

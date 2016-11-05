@@ -50,11 +50,11 @@ extension OrderStatus {
     var textColor: UIColor {
         switch self {
         case .delivered:
-            return UIColor(red:0.58, green:0.79, blue:0.07, alpha:1.0)
+            return UIColor(red:0.61, green:0.61, blue:0.61, alpha:1.0)
         case .pendingPayment, .pendingPreperation:
             return UIColor(red:0.79, green:0.71, blue:0.07, alpha:1.0)
         case .ready:
-            return UIColor(red:0.61, green:0.61, blue:0.61, alpha:1.0)
+            return UIColor(red:0.58, green:0.79, blue:0.07, alpha:1.0)
         }
     }
 }
