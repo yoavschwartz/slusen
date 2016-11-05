@@ -13,8 +13,12 @@ import RxCocoa
 class OrderViewController: UIViewController {
 
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var containerStackView: UIStackView!
 
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var activeOrdersTableView: UITableView!
+    @IBOutlet var activeOrdersTableViewHeightConstraint: NSLayoutConstraint!
+    
     var viewModel: OrderViewModel!
 
     let disposeBag = DisposeBag()
@@ -34,6 +38,29 @@ class OrderViewController: UIViewController {
         viewModel.productViewModels.drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: ProductTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
+
+        viewModel.orderViewModels.drive(self.activeOrdersTableView.rx.items(cellIdentifier: "activeOrderCell", cellType: ActiveOrderTableViewCell.self)) { row, vm, cell in
+            cell.viewModel = vm
+            }.addDisposableTo(disposeBag)
+
+        viewModel.orderViewModels.map { $0.count }
+            .map { numberOfActiveOrders -> CGFloat in
+            let activeOrderCellHeight: CGFloat = 44
+            let activeOrdersTableviewTopViewHeight: CGFloat = 20
+            let bottomPaddingHeight: CGFloat = 20
+            return (CGFloat(numberOfActiveOrders) * activeOrderCellHeight) + activeOrdersTableviewTopViewHeight + bottomPaddingHeight
+        }.drive(activeOrdersTableViewHeightConstraint.rx.constant)
+            .addDisposableTo(disposeBag)
+
+
+        viewModel.showActiveOrdersTable
+            .map {
+                !$0
+            }
+            .drive(activeOrdersTableView.rx.isHidden)
+            .addDisposableTo(disposeBag)
+
+
 
         // Do any additional setup after loading the view, typically from a nib.
     }

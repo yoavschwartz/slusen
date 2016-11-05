@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OrderTableViewCell: UITableViewCell {
+class ActiveOrderTableViewCell: UITableViewCell {
 
     @IBOutlet var orderNumberLabel: UILabel!
     @IBOutlet var orderStatusImage: UIImageView!
@@ -28,7 +28,7 @@ class OrderTableViewCell: UITableViewCell {
     }
 
     var disposeBag: DisposeBag?
-    var viewModel: OrderCellViewModel? {
+    var viewModel: ActiveOrderCellViewModel? {
         didSet {
             let disposeBag = DisposeBag()
 
@@ -36,7 +36,7 @@ class OrderTableViewCell: UITableViewCell {
                 return
             }
 
-            viewModel.orderStatusText.drive(orderNumberLabel.rx.text).addDisposableTo(disposeBag)
+            viewModel.displayOrderNumber.drive(orderNumberLabel.rx.text).addDisposableTo(disposeBag)
             viewModel.orderStatusTextColor
                 .drive(onNext: { [unowned self] color in
                 self.orderStatusLabel.textColor = color

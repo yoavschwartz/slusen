@@ -19,18 +19,29 @@ let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
 }()
 
 class OrderViewModel {
-    fileprivate let products: Driver<[Product]>
-    fileprivate let order: Driver<[OrderItem]>
+
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
+    //Current order
+    fileprivate let products: Driver<[Product]>
+    fileprivate let order: Driver<[OrderItem]>
     let productViewModels: Driver<[ProductCellViewModel]>
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
 
 
+    //Active orders
+    fileprivate let activeOrders: Driver<[Order]>
+    let orderViewModels: Driver<[ActiveOrderCellViewModel]>
+    let showActiveOrdersTable: Driver<Bool>
+
+
+
     private let disposeBag = DisposeBag()
 
     init(orderButtonTap: Observable<Void>) {
+
+        //Current order
         self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
         self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
@@ -60,6 +71,16 @@ class OrderViewModel {
             return zip(prices, amounts).map { $0.0 * $0.1 }.reduce(0, +)
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
+
+        //Active orders
+        let orders = [Order(id: 1, number: 26, status: .ready), Order(id: 1, number: 28, status: .pendingPreperation)]
+        activeOrders = Driver.just(orders)
+        orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
+        showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
+
+
+
+
 
 
     }
