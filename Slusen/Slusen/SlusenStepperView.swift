@@ -34,7 +34,7 @@ class SlusenStepperView: UIView {
 
     var plusButtonBackgroundColor: UIColor = UIColor(red: 237/255.0, green: 28/255.0, blue: 36/255.0, alpha: 1) {
         didSet {
-            plusButton.backgroundColor = minusButtonBackgroundColor
+            plusButton.backgroundColor = plusButtonBackgroundColor
         }
     }
 
@@ -57,9 +57,13 @@ class SlusenStepperView: UIView {
         plusButton.backgroundColor = plusButtonBackgroundColor
         minusButton.setImage(#imageLiteral(resourceName: "minus_button_icon"), for: .normal)
         plusButton.setImage(#imageLiteral(resourceName: "plus_button_icon"), for: .normal)
-        let tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
-        minusButton.tintColor = tintColor
-        plusButton.tintColor = tintColor
+
+        minusButton.tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
+        plusButton.tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
+
+
+
+
     }
 
     override func layoutSubviews() {

@@ -20,6 +20,7 @@ class ProductCellViewModel {
     let orderItem: Driver<OrderItem>
     let backgroundColor: Driver<UIColor>
     let minusButtonEnabled: Driver<Bool>
+    let plusButtonEnabled: Driver<Bool> = Driver.just(true)
 
     var disposeBag = DisposeBag()
 
