@@ -16,17 +16,15 @@ class SlusenStepperView: UIView {
     let minusButton = UIButton(type: UIButtonType.system)
     let plusButton = UIButton(type: UIButtonType.system)
 
-    var value: Int {
-        get {
-            return _value.value
-        }
-        set {
-            _value.value = newValue
-        }
+    var minusTapped: ControlEvent<Void> {
+        return minusButton.rx.tap
+    }
+
+    var plusTapped: ControlEvent<Void> {
+        return plusButton.rx.tap
     }
 
     fileprivate let _value: Variable<Int> = Variable(0)
-    fileprivate let disposeBag = DisposeBag()
 
     var minusButtonBackgroundColor: UIColor = UIColor(red: 234/255.0, green: 234/255.0, blue: 234/255.0, alpha: 1) {
         didSet {
@@ -62,21 +60,6 @@ class SlusenStepperView: UIView {
         let tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
         minusButton.tintColor = tintColor
         plusButton.tintColor = tintColor
-
-        _value.asDriver().map { $0 > 0 }
-            .drive(minusButton.rx.isEnabled)
-            .addDisposableTo(disposeBag)
-
-        minusButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-            self._value.value -= 1
-        }).addDisposableTo(disposeBag)
-
-        plusButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-                self._value.value += 1
-                }).addDisposableTo(disposeBag)
-        
     }
 
     override func layoutSubviews() {
@@ -104,13 +87,4 @@ class SlusenStepperView: UIView {
         plusMaskLayer.path = plusPath.cgPath
         plusButton.layer.mask = plusMaskLayer
     }
-}
-
-extension Reactive where Base: SlusenStepperView {
-
-    /// Reactive wrapper for `value` property.
-    var value: Driver<Int> {
-        return base._value.asDriver()
-    }
-
 }

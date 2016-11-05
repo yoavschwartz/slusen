@@ -45,12 +45,15 @@ class ProductTableViewCell: UITableViewCell {
     var viewModel: ProductCellViewModel? {
         didSet {
             let disposeBag = DisposeBag()
+            viewModel?.disposeBag = DisposeBag()
 
             guard let viewModel = viewModel else {
                 return
             }
 
-            viewModel.bindStepper(stepperValue: stepperView.rx.value.asObservable())
+            viewModel.bindStepper(minusTapped: stepperView.minusTapped, plusTapped: stepperView.plusTapped)
+
+            viewModel.minusButtonEnabled.drive(stepperView.minusButton.rx.isEnabled).addDisposableTo(disposeBag)
 
             viewModel.productName
                 .drive(productNameLabel.rx.text)

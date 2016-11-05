@@ -16,13 +16,12 @@ class ProductCellViewModel {
     fileprivate let _productAmount: Variable<Int> = Variable(0)
     let productName: Driver<String>
     let productDisplayPrice: Driver<String>
-    var productDisplayAmount: Driver<String> {
-        return _productAmount.asDriver().map(String.init)
-    }
+    let productDisplayAmount: Driver<String>
     let orderItem: Driver<OrderItem>
     let backgroundColor: Driver<UIColor>
+    let minusButtonEnabled: Driver<Bool>
 
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
 
     init(product: Product, row: Int) {
 
@@ -42,13 +41,20 @@ class ProductCellViewModel {
             OrderItem(product: prod, amount: amount)
         }
 
+        productDisplayAmount = _productAmount.asDriver().map(String.init)
 
+        minusButtonEnabled = _productAmount.asDriver().map { $0 > 0 }
     }
 
-    func bindStepper(stepperValue: Observable<Int>) {
-        stepperValue.asDriver(onErrorJustReturn: 0)
-            .drive(_productAmount)
-            .addDisposableTo(disposeBag)
+    func bindStepper(minusTapped: ControlEvent<Void>, plusTapped: ControlEvent<Void>) {
+        minusTapped.subscribe(onNext: { [unowned self] _ in
+            guard self._productAmount.value > 0 else { return }
+            self._productAmount.value -= 1
+        }).addDisposableTo(disposeBag)
+
+        plusTapped.subscribe(onNext: { [unowned self] _ in
+            self._productAmount.value += 1
+            }).addDisposableTo(disposeBag)
     }
 }
 
