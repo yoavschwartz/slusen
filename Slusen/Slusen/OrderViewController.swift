@@ -32,7 +32,7 @@ class OrderViewController: UIViewController {
         setupOrderButton()
 
         viewModel.productViewModels.drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: ProductTableViewCell.self)) { row, vm, cell in
-            cell.setup(viewModel: vm)
+            cell.viewModel = vm
         }.addDisposableTo(disposeBag)
 
         // Do any additional setup after loading the view, typically from a nib.

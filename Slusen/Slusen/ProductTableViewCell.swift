@@ -92,10 +92,6 @@ class ProductTableViewCell: UITableViewCell {
         }
     }
 
-    func setup(viewModel: ProductCellViewModel) {
-        self.viewModel = viewModel
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         self.viewModel = nil
