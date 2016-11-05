@@ -10,8 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-typealias Order = [OrderItem]
-
 let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
     let formatter = NumberFormatter()
     formatter.currencyCode = "DKK"
@@ -22,7 +20,7 @@ let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
 
 class OrderViewModel {
     fileprivate let products: Driver<[Product]>
-    fileprivate let order: Driver<Order>
+    fileprivate let order: Driver<[OrderItem]>
     var serverManager: ServerInterface = ServerManager.sharedInstance
 
     let productViewModels: Driver<[ProductCellViewModel]>
