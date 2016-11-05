@@ -72,26 +72,9 @@ class OrderViewModel {
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
 
-        //Active orders
-        let orders: Variable<[Order]> = Variable([Order(id: 1, number: 26, status: .ready), Order(id: 1, number: 28, status: .pendingPreperation)])
-        let deadlineTime2 = DispatchTime.now() + .seconds(2)
-        let deadlineTime3 = DispatchTime.now() + .seconds(4)
-
-        DispatchQueue.main.asyncAfter(deadline: deadlineTime2) { _ in
-            orders.value = [Order(id: 1, number: 26, status: .ready), Order(id: 1, number: 28, status: .ready)]
-        }
-        DispatchQueue.main.asyncAfter(deadline: deadlineTime3) { _ in
-            orders.value = [Order(id: 1, number: 26, status: .ready)]
-        }
-        activeOrders = orders.asDriver()
+        activeOrders = Driver.just([Order(id: 26, number: 26, status: .ready)])
         orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
         showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
-
-
-
-
-
-
     }
 
 }

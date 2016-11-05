@@ -16,13 +16,13 @@ class OrderViewController: UIViewController {
     @IBOutlet var containerStackView: UIStackView!
 
     @IBOutlet var tableView: UITableView!
+
     @IBOutlet var activeOrdersTableView: UITableView!
     @IBOutlet var activeOrdersTableViewHeightConstraint: NSLayoutConstraint!
     
     var viewModel: OrderViewModel!
 
     let disposeBag = DisposeBag()
-    var serverManager: ServerInterface = ServerManager.sharedInstance
 
     @IBOutlet var bottomButtonContainer: UIView!
     @IBOutlet var makeOrderButton: UIButton!
@@ -39,6 +39,8 @@ class OrderViewController: UIViewController {
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
 
+        //self.tableView.rx.items
+
         viewModel.orderViewModels.drive(self.activeOrdersTableView.rx.items(cellIdentifier: "activeOrderCell", cellType: ActiveOrderTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
             }.addDisposableTo(disposeBag)
@@ -47,7 +49,7 @@ class OrderViewController: UIViewController {
             .map { numberOfActiveOrders -> CGFloat in
             let activeOrderCellHeight: CGFloat = 44
             let activeOrdersTableviewTopViewHeight: CGFloat = 20
-            let bottomPaddingHeight: CGFloat = 20
+            let bottomPaddingHeight: CGFloat = 8
             return (CGFloat(numberOfActiveOrders) * activeOrderCellHeight) + activeOrdersTableviewTopViewHeight + bottomPaddingHeight
             }.drive(onNext: { [unowned self] height in
                 self.activeOrdersTableViewHeightConstraint.constant = height
@@ -66,10 +68,7 @@ class OrderViewController: UIViewController {
             })
             .addDisposableTo(disposeBag)
 
-
-
-
-
+        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -134,6 +133,30 @@ extension OrderViewController: OnboardingViewControllerDelegate {
     func onboardingViewController(onboarding: OnboardingViewController, didEnterName name: String) {
         dismiss(animated: true, completion: nil)
         print(name)
+    }
+}
+
+
+extension OrderViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44))
+        containerView.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
+        let label = UILabel(frame: CGRect.zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        label.textColor = UIColor.white
+        label.text = "Slusen Menu"
+        label.font = UIFont.systemFont(ofSize: 13)
+
+        containerView.addSubview(label)
+
+        containerView.addConstraint(NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: containerView, attribute: .left, multiplier: 1, constant: 8))
+        containerView.addConstraint(NSLayoutConstraint(item: containerView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 4))
+        return containerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
     }
 }
 
