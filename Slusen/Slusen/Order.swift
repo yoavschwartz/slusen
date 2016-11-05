@@ -16,7 +16,7 @@ struct Order {
 
 enum OrderStatus {
     case pendingPayment
-    case pendingDelivery
+    case pendingPreperation
     case ready
     case delivered
 }
