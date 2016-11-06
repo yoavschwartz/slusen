@@ -12,6 +12,7 @@ target 'Slusen' do
     pod 'MBProgressHUD'
     pod 'SwiftyJSON'
     pod 'Firebase/Core'
+    pod 'MobilePay-AppSwitch-SDK'
 
   # Pods for Slusen
 

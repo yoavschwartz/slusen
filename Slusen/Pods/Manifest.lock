@@ -20,6 +20,7 @@ PODS:
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - MBProgressHUD (1.0.0)
+  - MobilePay-AppSwitch-SDK (1.8.0)
   - RxAlamofire (3.0.0):
     - RxAlamofire/Core (= 3.0.0)
   - RxAlamofire/Core (3.0.0):
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - Alamofire
   - Firebase/Core
   - MBProgressHUD
+  - MobilePay-AppSwitch-SDK
   - RxAlamofire (~> 3.0)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
@@ -49,11 +51,12 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MobilePay-AppSwitch-SDK: 3c7d0bd3629b6ef5d6fd42be631836f8fbf1932a
   RxAlamofire: 0b1fa48f545fffe7f7a28af2086bcaa3b5946cc9
   RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
   RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
   SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
 
-PODFILE CHECKSUM: 80961b0dd7be6de95757be9578e5ee9ca842d63f
+PODFILE CHECKSUM: ad37306d1683f245726d34613d3495e1bdc8d6bb
 
 COCOAPODS: 1.1.1
