@@ -17,7 +17,9 @@ class ActiveOrderCellViewModel {
     let orderStatusTextColor: Driver<UIColor>
 
     init(order: Order) {
-        displayOrderNumber = Driver.just(order.number).map { "#\($0)" }
+        displayOrderNumber = Driver.just(order.number).map {
+            $0.map(String.init) ?? ""
+        }
         orderStatusImage = Driver.just(order.status.image)
         orderStatusText = Driver.just(order.status.text)
         orderStatusTextColor = Driver.just(order.status.textColor)

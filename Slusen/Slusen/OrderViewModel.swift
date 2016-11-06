@@ -73,7 +73,7 @@ class OrderViewModel {
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
 
-        activeOrders = Driver.just([Order(id: 26, number: 26, status: .ready)])
+        activeOrders = Driver.just([Order(id: 26, number: 26, products: [],status: .ready)])
         orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
         showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
 
