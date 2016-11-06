@@ -13,18 +13,27 @@ enum APIRouter: URLRequestConvertible, URLConvertible, CustomStringConvertible {
     static let baseURLString: String = "http://www.tritian.com/p3/api"
 
     case getProducts
+    case placeOrder([OrderItem])
 
-    var result: (path: String, parameters: [String: AnyObject]) {
+    var result: (path: String, parameters: [String: Any]) {
         switch self {
-        case .getProducts:
-            return ("/products", [:])
+        case .getProducts: return ("/products", [:])
+        case let .placeOrder(items):
+            let order = items.map {
+                ["product_id": $0.product.id, "amount": $0.amount]
+            }
+            let parameters: [String: Any] = ["order": order]
+            return ("/orders", parameters)
         }
+
     }
 
     var method: Alamofire.HTTPMethod {
         switch self {
         case .getProducts:
             return .get
+            case .placeOrder:
+            return .post
         }
     }
 

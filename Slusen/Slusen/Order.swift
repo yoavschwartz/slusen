@@ -13,7 +13,7 @@ struct Order {
     let number: Int?
     let createdAt: Date?
     let priceInCents: Int?
-    let products: [Product]
+    let items: [OrderItem]
     let fetchIdentifier: String?
     let delieveredAt: Date?
     var status: OrderStatus
@@ -22,7 +22,7 @@ struct Order {
         number: Int? = nil,
         createdAt: Date? = nil,
         priceInCents: Int? = nil,
-        products: [Product],
+        items: [OrderItem],
         fetchIdentifier: String? = nil,
         delieveredAt: Date? = nil,
         status: OrderStatus) {
@@ -30,7 +30,7 @@ struct Order {
         self.number = number
         self.createdAt = createdAt
         self.priceInCents = priceInCents
-        self.products = products
+        self.items = items
         self.fetchIdentifier = fetchIdentifier
         self.delieveredAt = delieveredAt
         self.status = status
@@ -39,6 +39,7 @@ struct Order {
 
 enum OrderStatus {
     case pendingPayment
+    case pendingServerPaymentConfirmation
     case pendingPreperation
     case ready
     case delivered
