@@ -20,16 +20,18 @@ class ProductCellViewModel {
     let orderItem: Driver<OrderItem>
     let backgroundColor: Driver<UIColor>
     let minusButtonEnabled: Driver<Bool>
-    let plusButtonEnabled: Driver<Bool> = Driver.just(true)
+    let plusButtonEnabled: Driver<Bool>
 
     var disposeBag = DisposeBag()
 
     init(product: Product, row: Int) {
 
         productName = Driver.just(product.name)
-        productDisplayPrice = Driver.just(product.priceInCents)
+        productDisplayPrice = product.available ?  Driver.just(product.priceInCents)
             .map { Double($0)/100 }
-            .map { String($0) + " kr." }
+            .map { priceFormatter.string(from: NSNumber(value: $0))!}
+             : Driver.just("Sold out")
+
         backgroundColor = Driver
             .just(row)
             .map(isEven)
@@ -42,9 +44,10 @@ class ProductCellViewModel {
             OrderItem(product: prod, amount: amount)
         }
 
-        productDisplayAmount = _productAmount.asDriver().map(String.init)
+        productDisplayAmount = product.available ? _productAmount.asDriver().map(String.init) : Driver.just("-")
 
-        minusButtonEnabled = _productAmount.asDriver().map { $0 > 0 }
+        minusButtonEnabled = product.available ? _productAmount.asDriver().map { $0 > 0 } : Driver.just(false)
+        plusButtonEnabled = Driver.just(product.available)
     }
 
     func bindStepper(minusTapped: ControlEvent<Void>, plusTapped: ControlEvent<Void>) {
