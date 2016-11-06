@@ -77,12 +77,6 @@ class OrderViewModel {
         orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
         showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
 
-        //test
-        orderButtonTap.flatMapLatest { [unowned self] _ -> Observable<Payment> in
-            self.paymentHandler.makePayment(orderID: "xxxxx", productPrice: 55)
-        }.subscribe { event in
-            print(event)
-        }.addDisposableTo(disposeBag)
     }
 
 }
