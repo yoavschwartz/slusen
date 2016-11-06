@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		55E7D0BF1FE8F853DDF18E50 /* Pods_Slusen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D868AFD4D60F16689461E2 /* Pods_Slusen.framework */; };
 		E5158A911DCE1E4000BC791D /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A901DCE1E4000BC791D /* Order.swift */; };
-		E5158A931DCE253C00BC791D /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */; };
+		E5158A931DCE253C00BC791D /* ActiveOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A921DCE253C00BC791D /* ActiveOrderTableViewCell.swift */; };
+		E5158A951DCE25F300BC791D /* ActiveOrderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A941DCE25F300BC791D /* ActiveOrderCellViewModel.swift */; };
 		E5543F221DC4B84800CB2FD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */; };
 		E5543F241DC4B84800CB2FD0 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F231DC4B84800CB2FD0 /* OrderViewController.swift */; };
 		E5543F271DC4B84800CB2FD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5543F251DC4B84800CB2FD0 /* Main.storyboard */; };
@@ -35,7 +36,8 @@
 		BF9F7CF00478819C9B1F665F /* Pods-Slusen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slusen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Slusen/Pods-Slusen.debug.xcconfig"; sourceTree = "<group>"; };
 		E46E08A96246A493160729EC /* Pods-Slusen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slusen.release.xcconfig"; path = "Pods/Target Support Files/Pods-Slusen/Pods-Slusen.release.xcconfig"; sourceTree = "<group>"; };
 		E5158A901DCE1E4000BC791D /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		E5158A921DCE253C00BC791D /* ActiveOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveOrderTableViewCell.swift; sourceTree = "<group>"; };
+		E5158A941DCE25F300BC791D /* ActiveOrderCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveOrderCellViewModel.swift; sourceTree = "<group>"; };
 		E5543F1E1DC4B84800CB2FD0 /* Slusen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slusen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5543F231DC4B84800CB2FD0 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
@@ -90,7 +92,8 @@
 		E5158A8F1DCE164400BC791D /* Order Tableview */ = {
 			isa = PBXGroup;
 			children = (
-				E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */,
+				E5158A921DCE253C00BC791D /* ActiveOrderTableViewCell.swift */,
+				E5158A941DCE25F300BC791D /* ActiveOrderCellViewModel.swift */,
 			);
 			name = "Order Tableview";
 			sourceTree = "<group>";
@@ -317,7 +320,7 @@
 			files = (
 				E5D9C9081DC5062200888954 /* JSONDecodable.swift in Sources */,
 				E59003441DC907CB00E8F692 /* ProductCellViewModel.swift in Sources */,
-				E5158A931DCE253C00BC791D /* OrderTableViewCell.swift in Sources */,
+				E5158A931DCE253C00BC791D /* ActiveOrderTableViewCell.swift in Sources */,
 				E5D9C9031DC4F53C00888954 /* APIRouter.swift in Sources */,
 				E5D9C9051DC5053900888954 /* Product.swift in Sources */,
 				E5CF5FD81DC92629006137DB /* OrderItem.swift in Sources */,
@@ -326,6 +329,7 @@
 				E5A750101DCC7E6300994CF6 /* SlusenStepperView.swift in Sources */,
 				E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */,
 				E5543F3B1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift in Sources */,
+				E5158A951DCE25F300BC791D /* ActiveOrderCellViewModel.swift in Sources */,
 				E5543F221DC4B84800CB2FD0 /* AppDelegate.swift in Sources */,
 				E59003411DC9055A00E8F692 /* ProductTableViewCell.swift in Sources */,
 				E5158A911DCE1E4000BC791D /* Order.swift in Sources */,
