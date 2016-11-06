@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    fileprivate var mobilePayJob: PublishSubject<Payment>?
+    fileprivate var mobilePayJob: PublishSubject<MobilePaySuccessfulPayment>?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -55,8 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: PaymentHandler {
-    func makePayment(orderID: String, productPrice: Float) -> Observable<Payment> {
-        let pubSubject = PublishSubject<Payment>()
+    func makePayment(orderID: String, productPrice: Float) -> Observable<MobilePaySuccessfulPayment> {
+        let pubSubject = PublishSubject<MobilePaySuccessfulPayment>()
         self.mobilePayJob = pubSubject
         let payment = MobilePayPayment(orderId: orderID, productPrice: productPrice)!
         MobilePayManager.sharedInstance().beginMobilePayment(with: payment) { [weak self] error in
@@ -71,7 +71,7 @@ extension AppDelegate: PaymentHandler {
         MobilePayManager.sharedInstance().handleMobilePayPayment(with: url, success: { [weak self] (success) in
             guard self?.mobilePayJob?.isDisposed != true else { return }
             guard let success = success else { preconditionFailure("Should never be nil if success") }
-            self?.mobilePayJob?.onNext(.success(success))
+            self?.mobilePayJob?.onNext(success)
             self?.mobilePayJob?.onCompleted()
             self?.mobilePayJob?.dispose()
             print(success)

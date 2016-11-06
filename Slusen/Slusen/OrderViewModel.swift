@@ -32,7 +32,7 @@ class OrderViewModel {
 
 
     //Active orders
-    fileprivate let activeOrders: Driver<[Order]>
+    fileprivate let activeOrders: Variable<[Order]>
     let orderViewModels: Driver<[ActiveOrderCellViewModel]>
     let showActiveOrdersTable: Driver<Bool>
 
@@ -73,10 +73,41 @@ class OrderViewModel {
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
 
-        activeOrders = Driver.just([Order(id: 26, number: 26, items: [],status: .ready)])
-        orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
-        showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
+        activeOrders = Variable([])
+        orderViewModels = activeOrders.asDriver().map { $0.map(ActiveOrderCellViewModel.init) }
+        showActiveOrdersTable = activeOrders.asDriver().map { !$0.isEmpty }
 
+        let orderPayment = orderButtonTap.withLatestFrom(order.asObservable()) { (_, order:[OrderItem]) -> [OrderItem] in
+            return order
+            }
+            .flatMapLatest(self.serverManager.placeOrder)
+        .flatMap(payOrder)
+
+        orderPayment
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .withLatestFrom(activeOrders.asDriver(), resultSelector: { (order: Order, orders: [Order]) -> [Order] in
+                return [order] + orders
+            })
+            .drive(activeOrders)
+            .addDisposableTo(disposeBag)
+
+    }
+
+    func payOrder(order: Order) -> Observable<Order> {
+        guard let price = order.priceInCents else { preconditionFailure("Should not get here with a product without a price") }
+
+        let priceInKr = Float(price)/100.0
+
+        return self.paymentHandler
+            .makePayment(orderID: String(order.id), productPrice: priceInKr)
+            .do(onNext: { payment in
+                //TODO:
+                //save order with payment token
+            })
+            .flatMap { [unowned self] payment -> Observable<Order> in
+                return self.serverManager.payOrder(order: order, transactionID: payment.transactionId)
+        }
+        
     }
 
 }

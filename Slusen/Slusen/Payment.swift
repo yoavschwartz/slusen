@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum Payment {
-    case success(MobilePaySuccessfulPayment)
-    case cancel(orderID: String)
-}
-
 enum PaymentError: Error {
     case cancelled(orderID: String)
     case error(Error)

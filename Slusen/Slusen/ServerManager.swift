@@ -15,6 +15,7 @@ import RxAlamofire
 protocol ServerInterface {
     func getProducts() -> Observable<[Product]>
     func placeOrder(items: [OrderItem]) -> Observable<Order>
+    func payOrder(order: Order, transactionID: String) -> Observable<Order>
 }
 
 class ServerManager: ServerInterface {
@@ -34,7 +35,10 @@ class ServerManager: ServerInterface {
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
         //TEST
-        let order = Order(id: 1, items: items, fetchIdentifier: "xxxx" , status: .pendingPayment)
+        let price = items.map { item -> Int in
+            item.amount * item.product.priceInCents
+        }.reduce(0, +)
+        let order = Order(id: 1, number: 26, priceInCents: price, items: items, fetchIdentifier: "xxxx", status: .pendingPayment)
         return Observable.just(order)
     }
 
