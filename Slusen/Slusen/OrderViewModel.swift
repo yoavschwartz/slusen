@@ -21,10 +21,11 @@ let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
 class OrderViewModel {
 
     var serverManager: ServerInterface = ServerManager.sharedInstance
+    var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 
     //Current order
     fileprivate let products: Driver<[Product]>
-    fileprivate let order: Driver<[OrderItem]>
+    fileprivate let order: Variable<[OrderItem]> = Variable([])
     let productViewModels: Driver<[ProductCellViewModel]>
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
@@ -49,22 +50,22 @@ class OrderViewModel {
             }
         }
 
-        order = productViewModels
+        productViewModels
             .flatMap { viewModels -> Driver<[OrderItem]> in
             let orderItems: [Driver<OrderItem>] = viewModels.map { $0.orderItem }
                 return Driver.combineLatest(orderItems) { $0 }
         }
             .map{ orderItems in orderItems.filter {$0.amount > 0} }
-            .distinctUntilChanged { $0 == $1 }
+            .distinctUntilChanged { $0 == $1 }.drive(order).addDisposableTo(disposeBag)
 
-        showOrderButton = order
+        showOrderButton = order.asDriver()
             .map { orderItems in
                 orderItems.map { $0.amount }.reduce(0, +)
             }.map {
                 $0 > 0
         }
 
-        buttonPriceLabelText = order
+        buttonPriceLabelText = order.asDriver()
             .map { orderItems -> Int in
             let prices = orderItems.map { $0.product.priceInCents }
             let amounts = orderItems.map { $0.amount }
@@ -75,6 +76,13 @@ class OrderViewModel {
         activeOrders = Driver.just([Order(id: 26, number: 26, status: .ready)])
         orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
         showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
+
+        //test
+        orderButtonTap.flatMapLatest { [unowned self] _ -> Observable<Payment> in
+            self.paymentHandler.makePayment(orderID: "xxxxx", productPrice: 55)
+        }.subscribe { event in
+            print(event)
+        }.addDisposableTo(disposeBag)
     }
 
 }
