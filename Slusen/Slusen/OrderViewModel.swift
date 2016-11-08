@@ -29,6 +29,7 @@ class OrderViewModel {
     let productViewModels: Driver<[ProductCellViewModel]>
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
+    //let reloadProductTable: Driver<Void>
 
 
     //Active orders
@@ -46,7 +47,8 @@ class OrderViewModel {
         self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
         self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
-                ProductCellViewModel(product: prod, row: offset)
+                let orderItem = OrderItem(product: prod, amount: 0)
+                return ProductCellViewModel(orderItem: orderItem, row: offset)
             }
         }
 
@@ -91,6 +93,14 @@ class OrderViewModel {
             .drive(activeOrders)
             .addDisposableTo(disposeBag)
 
+        orderPayment
+            .map { _ -> [OrderItem] in return [] }
+            .asDriver(onErrorJustReturn: [])
+            .drive(self.order)
+            .addDisposableTo(disposeBag)
+
+        //TODO reload table
+        
     }
 
     func payOrder(order: Order) -> Observable<Order> {

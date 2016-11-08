@@ -13,52 +13,65 @@ import RxCocoa
 
 class ProductCellViewModel {
 
-    fileprivate let _productAmount: Variable<Int> = Variable(0)
+    //fileprivate let productAmount: Variable<Int> = Variable(0)
     let productName: Driver<String>
     let productDisplayPrice: Driver<String>
     let productDisplayAmount: Driver<String>
-    let orderItem: Driver<OrderItem>
+    private let _orderItem: Variable<OrderItem>
+    var orderItem: Driver<OrderItem> {
+        return _orderItem.asDriver()
+    }
     let backgroundColor: Driver<UIColor>
     let minusButtonEnabled: Driver<Bool>
     let plusButtonEnabled: Driver<Bool>
 
     var disposeBag = DisposeBag()
 
-    init(product: Product, row: Int) {
+    init(orderItem: OrderItem, row: Int) {
 
-        productName = Driver.just(product.name)
-        productDisplayPrice = product.available ?  Driver.just(product.priceInCents)
-            .map { Double($0)/100 }
-            .map { priceFormatter.string(from: NSNumber(value: $0))!}
-             : Driver.just("Sold out")
+        _orderItem = Variable(orderItem)
+
+        self.productName = _orderItem.asDriver().map { $0.product.name }
+        productDisplayPrice = _orderItem.asDriver().map {
+            guard $0.product.available else { return "Sold Out" }
+
+            let price = Double($0.product.priceInCents) / 100
+            return priceFormatter.string(from: NSNumber(value: price))!
+
+        }
 
         backgroundColor = Driver
             .just(row)
-            .map(isEven)
-            .map {
-                let grayValue: CGFloat = ($0 ? 97 : 81)/255.0
-                return UIColor(red: grayValue, green: grayValue, blue: grayValue, alpha: 1.0)
+            .map(ProductCellViewModel.rowBackgroundColor(row:))
+
+        productDisplayAmount = _orderItem.asDriver().map {
+            guard $0.product.available else { return "-" }
+            return String($0.amount)
+            }
+
+        minusButtonEnabled =    _orderItem.asDriver().map {
+            guard $0.product.available else { return false }
+            return $0.amount > 0
         }
 
-        orderItem = Driver.combineLatest(Driver.just(product), _productAmount.asDriver()) { (prod: Product, amount: Int) -> OrderItem in
-            OrderItem(product: prod, amount: amount)
-        }
+        plusButtonEnabled = _orderItem.asDriver().map { $0.product.available }
+    }
 
-        productDisplayAmount = product.available ? _productAmount.asDriver().map(String.init) : Driver.just("-")
-
-        minusButtonEnabled = product.available ? _productAmount.asDriver().map { $0 > 0 } : Driver.just(false)
-        plusButtonEnabled = Driver.just(product.available)
+    private static func rowBackgroundColor(row: Int) -> UIColor {
+        let grayValue: CGFloat = (isEven(row) ? 97 : 81)/255.0
+        return UIColor(red: grayValue, green: grayValue, blue: grayValue, alpha: 1.0)
     }
 
     func bindStepper(minusTapped: ControlEvent<Void>, plusTapped: ControlEvent<Void>) {
-        minusTapped.subscribe(onNext: { [unowned self] _ in
-            guard self._productAmount.value > 0 else { return }
-            self._productAmount.value -= 1
-        }).addDisposableTo(disposeBag)
-
-        plusTapped.subscribe(onNext: { [unowned self] _ in
-            self._productAmount.value += 1
-            }).addDisposableTo(disposeBag)
+        Observable.of(minusTapped.map{-1}, plusTapped.map{1})
+            .merge()
+            .scan(_orderItem.value) { (prevOrderItem, step) -> OrderItem in
+                if prevOrderItem.amount == 0 && step < 0 { return prevOrderItem }
+                var prevOrderItem = prevOrderItem
+                prevOrderItem.amount += step
+                return prevOrderItem
+            }.bindTo(_orderItem)
+            .addDisposableTo(disposeBag)
     }
 }
 
