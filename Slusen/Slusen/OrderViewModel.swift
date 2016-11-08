@@ -24,9 +24,9 @@ class OrderViewModel {
     var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 
     //Current order
-    fileprivate let products: Driver<[Product]>
+
     fileprivate let order: Variable<[OrderItem]> = Variable([])
-    let productViewModels: Driver<[ProductCellViewModel]>
+    let productViewModels: Variable<[ProductCellViewModel]> = Variable([])
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
     //let reloadProductTable: Driver<Void>
@@ -44,15 +44,15 @@ class OrderViewModel {
     init(orderButtonTap: Observable<Void>) {
 
         //Current order
-        self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
-        self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
+        let products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
+        products.map { (prods: [Product]) -> [ProductCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
                 let orderItem = OrderItem(product: prod, amount: 0)
                 return ProductCellViewModel(orderItem: orderItem, row: offset)
             }
-        }
+        }.drive(productViewModels).addDisposableTo(disposeBag)
 
-        productViewModels
+        productViewModels.asDriver()
             .flatMap { viewModels -> Driver<[OrderItem]> in
             let orderItems: [Driver<OrderItem>] = viewModels.map { $0.orderItem }
                 return Driver.combineLatest(orderItems) { $0 }
@@ -82,21 +82,28 @@ class OrderViewModel {
         let orderPayment = orderButtonTap.withLatestFrom(order.asObservable()) { (_, order:[OrderItem]) -> [OrderItem] in
             return order
             }
-            .flatMapLatest(self.serverManager.placeOrder)
-        .flatMap(payOrder)
+            .flatMapLatest { [unowned self] orderItems in
+                self.serverManager.placeOrder(items: orderItems)
+                .flatMap(self.payOrder)
+                .catchError { _ in Observable.empty() }
+            }
+        .shareReplay(1)
 
         orderPayment
             .asDriver(onErrorDriveWith: Driver.empty())
-            .withLatestFrom(activeOrders.asDriver(), resultSelector: { (order: Order, orders: [Order]) -> [Order] in
-                return [order] + orders
+            .scan(activeOrders.value, accumulator: { (currentOrders, newOrder) -> [Order] in
+                return currentOrders + [newOrder]
             })
             .drive(activeOrders)
             .addDisposableTo(disposeBag)
 
-        orderPayment
-            .map { _ -> [OrderItem] in return [] }
-            .asDriver(onErrorJustReturn: [])
-            .drive(self.order)
+        orderPayment.map { _ in return () }.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(products) { (_, currentProducts) -> [ProductCellViewModel] in
+            return Array(currentProducts.enumerated()).map { offset, prod in
+                let orderItem = OrderItem(product: prod, amount: 0)
+                return ProductCellViewModel(orderItem: orderItem, row: offset)
+            }
+            }.drive(self.productViewModels)
             .addDisposableTo(disposeBag)
 
         //TODO reload table

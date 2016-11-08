@@ -62,7 +62,6 @@ extension AppDelegate: PaymentHandler {
         MobilePayManager.sharedInstance().beginMobilePayment(with: payment) { [weak self] error in
             guard self?.mobilePayJob?.isDisposed != true else { return }
             self?.mobilePayJob?.onError(PaymentError.error(error))
-            self?.mobilePayJob?.dispose()
         }
         return pubSubject.asObservable()
     }
@@ -73,17 +72,14 @@ extension AppDelegate: PaymentHandler {
             guard let success = success else { preconditionFailure("Should never be nil if success") }
             self?.mobilePayJob?.onNext(success)
             self?.mobilePayJob?.onCompleted()
-            self?.mobilePayJob?.dispose()
             print(success)
             }, error: { [weak self] (error: Error) in
                 guard self?.mobilePayJob?.isDisposed != true else { return }
                 self?.mobilePayJob?.onError(PaymentError.error(error))
-                self?.mobilePayJob?.dispose()
             }, cancel: { [weak self] (cancelled: MobilePayCancelledPayment?) in
                 guard self?.mobilePayJob?.isDisposed != true else { return }
                 guard let cancelled = cancelled else { preconditionFailure("Should never be nil if success") }
                 self?.mobilePayJob?.onError(PaymentError.cancelled(orderID: cancelled.orderId))
-                self?.mobilePayJob?.dispose()
             }
         )
     }
