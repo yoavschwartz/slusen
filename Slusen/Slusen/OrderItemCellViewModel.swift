@@ -1,5 +1,5 @@
 //
-//  ProductTableViewCellViewModel.swift
+//  OrderItemTableViewCellViewModel.swift
 //  Slusen
 //
 //  Created by Yoav Schwartz on 01/11/16.
@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProductCellViewModel {
+class OrderItemCellViewModel {
 
     //fileprivate let productAmount: Variable<Int> = Variable(0)
     let productName: Driver<String>
@@ -42,7 +42,7 @@ class ProductCellViewModel {
 
         backgroundColor = Driver
             .just(row)
-            .map(ProductCellViewModel.rowBackgroundColor(row:))
+            .map(OrderItemCellViewModel.rowBackgroundColor(row:))
 
         productDisplayAmount = _orderItem.asDriver().map {
             guard $0.product.available else { return "-" }

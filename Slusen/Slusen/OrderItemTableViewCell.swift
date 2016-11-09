@@ -1,5 +1,5 @@
 //
-//  ProductTableViewCell.swift
+//  OrderItemTableViewCell.swift
 //  Slusen
 //
 //  Created by Yoav Schwartz on 01/11/16.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ProductTableViewCell: UITableViewCell {
+class OrderItemTableViewCell: UITableViewCell {
 
     @IBOutlet var productNameLabel: UILabel!
     @IBOutlet var productPriceLabel: UILabel!
@@ -42,7 +42,7 @@ class ProductTableViewCell: UITableViewCell {
 
 
     var disposeBag: DisposeBag?
-    var viewModel: ProductCellViewModel? {
+    var viewModel: OrderItemCellViewModel? {
         didSet {
             let disposeBag = DisposeBag()
             viewModel?.disposeBag = DisposeBag()

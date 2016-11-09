@@ -26,7 +26,7 @@ class OrderViewModel {
     //Current order
 
     fileprivate let order: Variable<[OrderItem]> = Variable([])
-    let productViewModels: Variable<[ProductCellViewModel]> = Variable([])
+    let productViewModels: Variable<[OrderItemCellViewModel]> = Variable([])
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
     //let reloadProductTable: Driver<Void>
@@ -45,10 +45,10 @@ class OrderViewModel {
 
         //Current order
         let products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
-        products.map { (prods: [Product]) -> [ProductCellViewModel] in
+        products.map { (prods: [Product]) -> [OrderItemCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
                 let orderItem = OrderItem(product: prod, amount: 0)
-                return ProductCellViewModel(orderItem: orderItem, row: offset)
+                return OrderItemCellViewModel(orderItem: orderItem, row: offset)
             }
         }.drive(productViewModels).addDisposableTo(disposeBag)
 
@@ -98,10 +98,10 @@ class OrderViewModel {
             .addDisposableTo(disposeBag)
 
         orderPayment.map { _ in return () }.asDriver(onErrorJustReturn: ())
-            .withLatestFrom(products) { (_, currentProducts) -> [ProductCellViewModel] in
+            .withLatestFrom(products) { (_, currentProducts) -> [OrderItemCellViewModel] in
             return Array(currentProducts.enumerated()).map { offset, prod in
                 let orderItem = OrderItem(product: prod, amount: 0)
-                return ProductCellViewModel(orderItem: orderItem, row: offset)
+                return OrderItemCellViewModel(orderItem: orderItem, row: offset)
             }
             }.drive(self.productViewModels)
             .addDisposableTo(disposeBag)
