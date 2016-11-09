@@ -145,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				E59003451DC9159500E8F692 /* OrderViewController */,
-				E59003421DC9079F00E8F692 /* ProductCell */,
+				E59003421DC9079F00E8F692 /* OrderItemCell */,
 				E5A7500F1DCC7E6300994CF6 /* SlusenStepperView.swift */,
 				E5158A8F1DCE164400BC791D /* Order Tableview */,
 			);
@@ -161,13 +161,13 @@
 			name = Onboarding;
 			sourceTree = "<group>";
 		};
-		E59003421DC9079F00E8F692 /* ProductCell */ = {
+		E59003421DC9079F00E8F692 /* OrderItemCell */ = {
 			isa = PBXGroup;
 			children = (
 				E59003401DC9055A00E8F692 /* OrderItemTableViewCell.swift */,
 				E59003431DC907CB00E8F692 /* OrderItemCellViewModel.swift */,
 			);
-			name = ProductCell;
+			name = OrderItemCell;
 			sourceTree = "<group>";
 		};
 		E59003451DC9159500E8F692 /* OrderViewController */ = {
