@@ -24,15 +24,16 @@ class OrderViewModel {
     var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 
     //Current order
-    fileprivate let products: Driver<[Product]>
+
     fileprivate let order: Variable<[OrderItem]> = Variable([])
-    let productViewModels: Driver<[ProductCellViewModel]>
+    let productViewModels: Variable<[ProductCellViewModel]> = Variable([])
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
+    //let reloadProductTable: Driver<Void>
 
 
     //Active orders
-    fileprivate let activeOrders: Driver<[Order]>
+    fileprivate let activeOrders: Variable<[Order]>
     let orderViewModels: Driver<[ActiveOrderCellViewModel]>
     let showActiveOrdersTable: Driver<Bool>
 
@@ -43,14 +44,15 @@ class OrderViewModel {
     init(orderButtonTap: Observable<Void>) {
 
         //Current order
-        self.products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
-        self.productViewModels = self.products.map { (prods: [Product]) -> [ProductCellViewModel] in
+        let products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
+        products.map { (prods: [Product]) -> [ProductCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
-                ProductCellViewModel(product: prod, row: offset)
+                let orderItem = OrderItem(product: prod, amount: 0)
+                return ProductCellViewModel(orderItem: orderItem, row: offset)
             }
-        }
+        }.drive(productViewModels).addDisposableTo(disposeBag)
 
-        productViewModels
+        productViewModels.asDriver()
             .flatMap { viewModels -> Driver<[OrderItem]> in
             let orderItems: [Driver<OrderItem>] = viewModels.map { $0.orderItem }
                 return Driver.combineLatest(orderItems) { $0 }
@@ -73,10 +75,56 @@ class OrderViewModel {
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
 
-        activeOrders = Driver.just([Order(id: 26, number: 26, status: .ready)])
-        orderViewModels = activeOrders.map { $0.map(ActiveOrderCellViewModel.init) }
-        showActiveOrdersTable = activeOrders.map { !$0.isEmpty }
+        activeOrders = Variable([])
+        orderViewModels = activeOrders.asDriver().map { $0.map(ActiveOrderCellViewModel.init) }
+        showActiveOrdersTable = activeOrders.asDriver().map { !$0.isEmpty }
 
+        let orderPayment = orderButtonTap.withLatestFrom(order.asObservable()) { (_, order:[OrderItem]) -> [OrderItem] in
+            return order
+            }
+            .flatMapLatest { [unowned self] orderItems in
+                self.serverManager.placeOrder(items: orderItems)
+                .flatMap(self.payOrder)
+                .catchError { _ in Observable.empty() }
+            }
+        .shareReplay(1)
+
+        orderPayment
+            .asDriver(onErrorDriveWith: Driver.empty())
+            .scan(activeOrders.value, accumulator: { (currentOrders, newOrder) -> [Order] in
+                return currentOrders + [newOrder]
+            })
+            .drive(activeOrders)
+            .addDisposableTo(disposeBag)
+
+        orderPayment.map { _ in return () }.asDriver(onErrorJustReturn: ())
+            .withLatestFrom(products) { (_, currentProducts) -> [ProductCellViewModel] in
+            return Array(currentProducts.enumerated()).map { offset, prod in
+                let orderItem = OrderItem(product: prod, amount: 0)
+                return ProductCellViewModel(orderItem: orderItem, row: offset)
+            }
+            }.drive(self.productViewModels)
+            .addDisposableTo(disposeBag)
+
+        //TODO reload table
+        
+    }
+
+    func payOrder(order: Order) -> Observable<Order> {
+        guard let price = order.priceInCents else { preconditionFailure("Should not get here with a product without a price") }
+
+        let priceInKr = Float(price)/100.0
+
+        return self.paymentHandler
+            .makePayment(orderID: String(order.id), productPrice: priceInKr)
+            .do(onNext: { payment in
+                //TODO:
+                //save order with payment token
+            })
+            .flatMap { [unowned self] payment -> Observable<Order> in
+                return self.serverManager.payOrder(order: order, transactionID: payment.transactionId)
+        }
+        
     }
 
 }

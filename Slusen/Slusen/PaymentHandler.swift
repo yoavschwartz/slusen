@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol PaymentHandler {
-    func makePayment(orderID: String, productPrice: Float) -> Observable<Payment>
+    func makePayment(orderID: String, productPrice: Float) -> Observable<MobilePaySuccessfulPayment>
 }

@@ -17,7 +17,9 @@ class ActiveOrderCellViewModel {
     let orderStatusTextColor: Driver<UIColor>
 
     init(order: Order) {
-        displayOrderNumber = Driver.just(order.number).map { "#\($0)" }
+        displayOrderNumber = Driver.just(order.number).map {
+            $0.map(String.init) ?? ""
+        }
         orderStatusImage = Driver.just(order.status.image)
         orderStatusText = Driver.just(order.status.text)
         orderStatusTextColor = Driver.just(order.status.textColor)
@@ -29,7 +31,7 @@ extension OrderStatus {
         switch self {
         case .delivered:
             return #imageLiteral(resourceName: "delivered_icon")
-        case .pendingPayment, .pendingPreperation:
+        case .pendingPayment, .pendingServerPaymentConfirmation, .pendingPreperation:
             return #imageLiteral(resourceName: "pending_icon")
         case .ready:
             return #imageLiteral(resourceName: "ready_icon")
@@ -40,7 +42,7 @@ extension OrderStatus {
         switch self {
         case .delivered:
             return "Delivered"
-        case .pendingPayment, .pendingPreperation:
+        case .pendingPayment, .pendingServerPaymentConfirmation, .pendingPreperation:
             return "Pending"
         case .ready:
             return "Ready"
@@ -51,7 +53,7 @@ extension OrderStatus {
         switch self {
         case .delivered:
             return UIColor(red:0.61, green:0.61, blue:0.61, alpha:1.0)
-        case .pendingPayment, .pendingPreperation:
+        case .pendingPayment, .pendingServerPaymentConfirmation, .pendingPreperation:
             return UIColor(red:0.79, green:0.71, blue:0.07, alpha:1.0)
         case .ready:
             return UIColor(red:0.58, green:0.79, blue:0.07, alpha:1.0)

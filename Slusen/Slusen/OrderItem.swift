@@ -10,7 +10,7 @@ import Foundation
 
 struct OrderItem {
     let product: Product
-    let amount: Int
+    var amount: Int
 }
 
 extension OrderItem: Equatable {}
