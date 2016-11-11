@@ -117,8 +117,12 @@ class OrderViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //let onboardingVC = OnboardingViewController.initViewController(delegate: self)
-        //present(onboardingVC, animated: true, completion: nil)
+        viewModel.shouldShowOnbaording.flatMap {
+            $0 ? Driver.just() : Driver.empty()
+            }.drive(onNext: { [unowned self] _ in
+                let onboardingVC = OnboardingViewController.initViewController(delegate: self)
+                self.present(onboardingVC, animated: true, completion: nil)
+            }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

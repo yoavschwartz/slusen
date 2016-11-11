@@ -40,7 +40,9 @@ class OnboardingViewController: UIViewController {
             .drive(startButton.rx.isEnabled)
             .addDisposableTo(disposeBag)
 
+        //Should go in the view model
         startButton.rx.tap.bindNext { [unowned self] _ in
+            User.sharedInstance.name.value = self.nameTextField.text
             self.delegate?.onboardingViewController(onboarding: self, didEnterName: self.nameTextField.text!)
         }.addDisposableTo(disposeBag)
     }
