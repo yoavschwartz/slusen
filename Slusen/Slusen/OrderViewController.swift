@@ -35,6 +35,11 @@ class OrderViewController: UIViewController {
         self.viewModel = OrderViewModel(orderButtonTap: makeOrderButton.rx.tap.asObservable())
         setupOrderButton()
 
+        self.viewModel
+            .viewControllerTitle
+            .drive(self.rx.title)
+            .addDisposableTo(disposeBag)
+
         viewModel.productViewModels.asDriver().drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: OrderItemTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)

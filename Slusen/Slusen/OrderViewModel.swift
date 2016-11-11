@@ -41,6 +41,12 @@ class OrderViewModel {
         .name
         .asDriver()
         .map { $0 == nil }
+
+    let viewControllerTitle: Driver<String> = User.sharedInstance
+            .name
+            .asDriver()
+            .flatMap { $0.map(Driver.just) ?? Driver.empty() }
+
     
 
 
@@ -111,8 +117,6 @@ class OrderViewModel {
             }
             }.drive(self.productViewModels)
             .addDisposableTo(disposeBag)
-
-        //TODO reload table
         
     }
 
