@@ -43,7 +43,7 @@ struct Order: JSONDecodable {
         self.id = id
         self.number = converted["order_number"].int ?? id
         self.createdAt = ServerDateFormatter.date(from: converted["created_at"].stringValue)!
-        self.priceInCents = converted["price"].intValue
+        self.priceInCents = converted["total_price"].intValue
         self.items = converted["items"].arrayValue.flatMap { $0.dictionaryObject }.map(OrderItem.init)
         self.fetchIdentifier = converted["fetch_id"].stringValue
         self.delieveredAt = converted["develivered_at"].string.flatMap(ServerDateFormatter.date(from:))

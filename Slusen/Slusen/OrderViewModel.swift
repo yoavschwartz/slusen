@@ -99,7 +99,7 @@ class OrderViewModel {
                 .flatMap(self.payOrder)
                 .catchError { _ in Observable.empty() }
             }
-        .shareReplay(1)
+        .shareReplayLatestWhileConnected()
 
         orderPayment
             .asDriver(onErrorDriveWith: Driver.empty())

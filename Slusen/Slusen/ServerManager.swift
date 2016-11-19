@@ -39,14 +39,16 @@ class ServerManager: ServerInterface {
                 throw RequestError.parsingError
             }
             return Order.init(json: json)
-        }.debug()
+        }
     }
 
     func payOrder(order: Order, transactionID: String) -> Observable<Order> {
-        //TEST
-        var order = order
-        order.status = .pendingPreperation
-        return Observable.just(order)
+        return requestJSON(router: .payOrder(orderID: order.id, paymentID: transactionID)).map { (urlResponse, jsonData) -> Order in
+            guard let json = jsonData as? [String: Any] else {
+                throw RequestError.parsingError
+            }
+            return Order.init(json: json)
+        }
     }
 }
 

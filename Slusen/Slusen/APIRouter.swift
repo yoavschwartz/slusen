@@ -50,7 +50,7 @@ enum APIRouter: URLConvertible, CustomStringConvertible {
 
     var encoding: ParameterEncoding {
         switch method {
-        case .post: return JSONEncoding.default
+        case .post, .put: return JSONEncoding.default
         default: return URLEncoding()
         }
     }
