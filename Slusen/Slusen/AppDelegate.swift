@@ -22,10 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //FIRApp.configure()
         // Override point for customization after application launch.
 
-        ServerManager.sharedInstance.getOrders(fetchIdentifiers: ["029b2a83-5b19-4e25-891c-05e3b6626071"]).subscribe { event in
-            print(event)
-        }
-
         MobilePayManager.sharedInstance().setup(withMerchantId: "APPDK0000000000", merchantUrlScheme: "slusen", country: MobilePayCountry.denmark)
 
         return true

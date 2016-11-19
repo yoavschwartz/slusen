@@ -10,17 +10,24 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class User {
+public class User {
     static let shared = User()
 
 
-    let name: Variable<String?> = Variable(UserDefaults.standard.string(forKey: "userName"))
-
-    let disposeBag = DisposeBag()
-
-    init() {
-        name.asDriver().skip(1).drive(onNext: { newValue in
+    var name: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "userName")
+        }
+        set {
             UserDefaults.standard.setValue(newValue, forKey: "userName")
-            }).addDisposableTo(disposeBag)
+        }
     }
 }
+
+public extension Reactive where Base: User {
+    var name: Observable<String?> {
+        return UserDefaults.standard.rx.observe(String.self, "userName")
+    }
+}
+
+extension User: ReactiveCompatible {}

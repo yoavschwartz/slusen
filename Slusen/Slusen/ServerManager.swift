@@ -35,7 +35,7 @@ class ServerManager: ServerInterface {
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
-        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name.value ?? "", fcmToken: "")).map { (urlResponse, jsonData) -> Order in
+        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: "")).map { (urlResponse, jsonData) -> Order in
             guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
                 throw RequestError.parsingError
             }
@@ -53,8 +53,6 @@ class ServerManager: ServerInterface {
     }
 
     func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]> {
-        let router = APIRouter.getOrders(fetchIdentifiers: fetchIdentifiers)
-        print(Alamofire.request(router, method: router.method, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers).debugDescription)
         return requestJSON(router: .getOrders(fetchIdentifiers: fetchIdentifiers)).map { (urlResponse, jsonData) -> [Order] in
             guard let json = jsonData as? [String: Any], let orders = json["orders"] as? [[String: Any]] else {
                 throw RequestError.parsingError

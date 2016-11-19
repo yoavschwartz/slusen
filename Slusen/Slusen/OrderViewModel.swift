@@ -37,14 +37,14 @@ class OrderViewModel {
     let showActiveOrdersTable: Driver<Bool>
 
     //User Name
-    let shouldShowOnbaording: Driver<Bool> = User.shared
+    let shouldShowOnbaording: Driver<Bool> = User.shared.rx
         .name
-        .asDriver()
+        .asDriver(onErrorJustReturn: nil)
         .map { $0 == nil }
 
-    let viewControllerTitle: Driver<String> = User.shared
+    let viewControllerTitle: Driver<String> = User.shared.rx
             .name
-            .asDriver()
+        .asDriver(onErrorJustReturn: nil)
             .flatMap { $0.map(Driver.just) ?? Driver.empty() }
 
     
@@ -54,7 +54,6 @@ class OrderViewModel {
     private let disposeBag = DisposeBag()
 
     init(orderButtonTap: Observable<Void>) {
-
         //Current order
         let products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
         products.map { (prods: [Product]) -> [OrderItemCellViewModel] in
