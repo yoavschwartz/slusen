@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class User {
-    static let sharedInstance = User()
+    static let shared = User()
 
 
     let name: Variable<String?> = Variable(UserDefaults.standard.string(forKey: "userName"))

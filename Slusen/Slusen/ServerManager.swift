@@ -14,6 +14,7 @@ import RxAlamofire
 
 protocol ServerInterface {
     func getProducts() -> Observable<[Product]>
+    func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]>
     func placeOrder(items: [OrderItem]) -> Observable<Order>
     func payOrder(order: Order, transactionID: String) -> Observable<Order>
 }
@@ -34,20 +35,34 @@ class ServerManager: ServerInterface {
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
-        //TEST
-        let price = items.map { item -> Int in
-            item.amount * item.product.priceInCents
-        }.reduce(0, +)
-        let order = Order(id: 1, number: 26, priceInCents: price, items: items, fetchIdentifier: "xxxx", status: .pendingPayment)
-        return Observable.just(order)
+        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name.value ?? "", fcmToken: "")).map { (urlResponse, jsonData) -> Order in
+            guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
+                throw RequestError.parsingError
+            }
+            return Order.init(json: orderJSON)
+        }
     }
 
     func payOrder(order: Order, transactionID: String) -> Observable<Order> {
-        //TEST
-        var order = order
-        order.status = .pendingPreperation
-        return Observable.just(order)
+        return requestJSON(router: .payOrder(orderID: order.id, paymentID: transactionID)).map { (urlResponse, jsonData) -> Order in
+            guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any] else {
+                throw RequestError.parsingError
+            }
+            return Order.init(json: orderJSON)
+        }
     }
+
+    func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]> {
+        let router = APIRouter.getOrders(fetchIdentifiers: fetchIdentifiers)
+        print(Alamofire.request(router, method: router.method, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers).debugDescription)
+        return requestJSON(router: .getOrders(fetchIdentifiers: fetchIdentifiers)).map { (urlResponse, jsonData) -> [Order] in
+            guard let json = jsonData as? [String: Any], let orders = json["orders"] as? [[String: Any]] else {
+                throw RequestError.parsingError
+            }
+            return orders.map(Order.init(json:))
+        }
+    }
+
 }
 
 enum RequestError: Error {
@@ -55,5 +70,5 @@ enum RequestError: Error {
 }
 
 fileprivate func requestJSON(router: APIRouter) -> Observable<(HTTPURLResponse, Any)> {
-    return RxAlamofire.requestJSON(router.method, router, parameters: router.result.parameters, headers: router.headers)
+    return RxAlamofire.requestJSON(router.method, router, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers)
 }

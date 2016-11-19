@@ -9,45 +9,50 @@
 import Foundation
 import Alamofire
 
-enum APIRouter: URLRequestConvertible, URLConvertible, CustomStringConvertible {
+enum APIRouter: URLConvertible, CustomStringConvertible {
     static let baseURLString: String = "http://www.tritian.com/p3/api"
 
     case getProducts
-    case placeOrder([OrderItem])
+    case getOrders(fetchIdentifiers: [String])
+    case placeOrder(order: [OrderItem], userName: String, fcmToken: String)
+    case payOrder(orderID: Int, paymentID: String)
 
     var result: (path: String, parameters: [String: Any]) {
         switch self {
         case .getProducts: return ("/products", [:])
-        case let .placeOrder(items):
+        case let .getOrders(fetchIdentifiers):
+            return ("/orders", ["order": fetchIdentifiers])
+        case let .placeOrder(items, userName, fcmToken):
             let order = items.map {
-                ["product_id": $0.product.id, "amount": $0.amount]
+                ["product_id": $0.product.id, "quantity": $0.amount]
             }
-            let parameters: [String: Any] = ["order": order]
+            let parameters: [String: Any] = ["user_name": userName, "fcm_token": fcmToken ,"items": order]
             return ("/orders", parameters)
+        case let .payOrder(orderID, paymentID):
+            return ("/orders/\(orderID)", ["payment_id": paymentID])
         }
-
     }
 
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .getProducts:
+        case .getProducts, .getOrders:
             return .get
-            case .placeOrder:
+        case .placeOrder:
             return .post
+        case .payOrder:
+            return .put
         }
     }
 
-    // swiftlint:disable variable_name
-    func asURLRequest() throws -> URLRequest {
-        let url = URL(string: APIRouter.baseURLString)!
-        var urlRequest = URLRequest(url: url.appendingPathComponent(result.path))
-        urlRequest.httpMethod = method.rawValue
-//        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
-        return try URLEncoding().encode(urlRequest, with: result.parameters)
+    var headers: [String: String] {
+        return ["Accept": "application/json", "Content-Type": "application/json"]
     }
 
-    var headers: [String: String] {
-        return ["Accept": "application/json"]
+    var encoding: ParameterEncoding {
+        switch method {
+        case .post, .put: return JSONEncoding.default
+        default: return URLEncoding()
+        }
     }
 
     func asURL() throws -> URL {

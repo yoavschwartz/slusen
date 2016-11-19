@@ -37,12 +37,12 @@ class OrderViewModel {
     let showActiveOrdersTable: Driver<Bool>
 
     //User Name
-    let shouldShowOnbaording: Driver<Bool> = User.sharedInstance
+    let shouldShowOnbaording: Driver<Bool> = User.shared
         .name
         .asDriver()
         .map { $0 == nil }
 
-    let viewControllerTitle: Driver<String> = User.sharedInstance
+    let viewControllerTitle: Driver<String> = User.shared
             .name
             .asDriver()
             .flatMap { $0.map(Driver.just) ?? Driver.empty() }
@@ -99,7 +99,7 @@ class OrderViewModel {
                 .flatMap(self.payOrder)
                 .catchError { _ in Observable.empty() }
             }
-        .shareReplay(1)
+        .shareReplayLatestWhileConnected()
 
         orderPayment
             .asDriver(onErrorDriveWith: Driver.empty())
