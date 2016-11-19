@@ -38,7 +38,7 @@ struct Order: JSONDecodable {
     }
 
     init(json: [String : Any]) {
-        let converted = JSON(json["order"])
+        let converted = JSON(json)
         let id = converted["id"].intValue
         self.id = id
         self.number = converted["order_number"].int ?? id

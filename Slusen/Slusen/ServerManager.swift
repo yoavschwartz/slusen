@@ -14,6 +14,7 @@ import RxAlamofire
 
 protocol ServerInterface {
     func getProducts() -> Observable<[Product]>
+    func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]>
     func placeOrder(items: [OrderItem]) -> Observable<Order>
     func payOrder(order: Order, transactionID: String) -> Observable<Order>
 }
@@ -35,21 +36,33 @@ class ServerManager: ServerInterface {
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
         return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name.value ?? "", fcmToken: "")).map { (urlResponse, jsonData) -> Order in
-            guard let json = jsonData as? [String: Any] else {
+            guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
                 throw RequestError.parsingError
             }
-            return Order.init(json: json)
+            return Order.init(json: orderJSON)
         }
     }
 
     func payOrder(order: Order, transactionID: String) -> Observable<Order> {
         return requestJSON(router: .payOrder(orderID: order.id, paymentID: transactionID)).map { (urlResponse, jsonData) -> Order in
-            guard let json = jsonData as? [String: Any] else {
+            guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any] else {
                 throw RequestError.parsingError
             }
-            return Order.init(json: json)
+            return Order.init(json: orderJSON)
         }
     }
+
+    func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]> {
+        let router = APIRouter.getOrders(fetchIdentifiers: fetchIdentifiers)
+        print(Alamofire.request(router, method: router.method, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers).debugDescription)
+        return requestJSON(router: .getOrders(fetchIdentifiers: fetchIdentifiers)).map { (urlResponse, jsonData) -> [Order] in
+            guard let json = jsonData as? [String: Any], let orders = json["orders"] as? [[String: Any]] else {
+                throw RequestError.parsingError
+            }
+            return orders.map(Order.init(json:))
+        }
+    }
+
 }
 
 enum RequestError: Error {
