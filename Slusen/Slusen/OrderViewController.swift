@@ -35,6 +35,11 @@ class OrderViewController: UIViewController {
         self.viewModel = OrderViewModel(orderButtonTap: makeOrderButton.rx.tap.asObservable())
         setupOrderButton()
 
+        self.viewModel
+            .viewControllerTitle
+            .drive(self.rx.title)
+            .addDisposableTo(disposeBag)
+
         viewModel.productViewModels.asDriver().drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: OrderItemTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
@@ -117,8 +122,12 @@ class OrderViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //let onboardingVC = OnboardingViewController.initViewController(delegate: self)
-        //present(onboardingVC, animated: true, completion: nil)
+        viewModel.shouldShowOnbaording.flatMap {
+            $0 ? Driver.just() : Driver.empty()
+            }.drive(onNext: { [unowned self] _ in
+                let onboardingVC = OnboardingViewController.initViewController(delegate: self)
+                self.present(onboardingVC, animated: true, completion: nil)
+            }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

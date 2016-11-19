@@ -21,6 +21,7 @@
 		E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F331DC4CCE400CB2FD0 /* OnboardingViewController.swift */; };
 		E5543F381DC4CE6300CB2FD0 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F371DC4CE6300CB2FD0 /* OnboardingViewModel.swift */; };
 		E5543F3B1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */; };
+		E5885DC41DD5F08A004B2DB9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5885DC31DD5F08A004B2DB9 /* User.swift */; };
 		E59003411DC9055A00E8F692 /* OrderItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59003401DC9055A00E8F692 /* OrderItemTableViewCell.swift */; };
 		E59003441DC907CB00E8F692 /* OrderItemCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59003431DC907CB00E8F692 /* OrderItemCellViewModel.swift */; };
 		E59003471DC915AB00E8F692 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59003461DC915AB00E8F692 /* OrderViewModel.swift */; };
@@ -53,6 +54,7 @@
 		E5543F331DC4CCE400CB2FD0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		E5543F371DC4CE6300CB2FD0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardHelperMethods.swift; sourceTree = "<group>"; };
+		E5885DC31DD5F08A004B2DB9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E59003401DC9055A00E8F692 /* OrderItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItemTableViewCell.swift; sourceTree = "<group>"; };
 		E59003431DC907CB00E8F692 /* OrderItemCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItemCellViewModel.swift; sourceTree = "<group>"; };
 		E59003461DC915AB00E8F692 /* OrderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				E5CF5FD71DC92629006137DB /* OrderItem.swift */,
 				E5158A901DCE1E4000BC791D /* Order.swift */,
 				E5158A991DCF7F2200BC791D /* Payment.swift */,
+				E5885DC31DD5F08A004B2DB9 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				E5CF5FD81DC92629006137DB /* OrderItem.swift in Sources */,
 				E59003471DC915AB00E8F692 /* OrderViewModel.swift in Sources */,
 				E5543F241DC4B84800CB2FD0 /* OrderViewController.swift in Sources */,
+				E5885DC41DD5F08A004B2DB9 /* User.swift in Sources */,
 				E5A750101DCC7E6300994CF6 /* SlusenStepperView.swift in Sources */,
 				E5158A9C1DCF8B9200BC791D /* PaymentHandler.swift in Sources */,
 				E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */,

@@ -24,7 +24,6 @@ class OrderViewModel {
     var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 
     //Current order
-
     fileprivate let order: Variable<[OrderItem]> = Variable([])
     let productViewModels: Variable<[OrderItemCellViewModel]> = Variable([])
     let showOrderButton: Driver<Bool>
@@ -36,6 +35,19 @@ class OrderViewModel {
     fileprivate let activeOrders: Variable<[Order]>
     let orderViewModels: Driver<[ActiveOrderCellViewModel]>
     let showActiveOrdersTable: Driver<Bool>
+
+    //User Name
+    let shouldShowOnbaording: Driver<Bool> = User.sharedInstance
+        .name
+        .asDriver()
+        .map { $0 == nil }
+
+    let viewControllerTitle: Driver<String> = User.sharedInstance
+            .name
+            .asDriver()
+            .flatMap { $0.map(Driver.just) ?? Driver.empty() }
+
+    
 
 
 
@@ -105,8 +117,6 @@ class OrderViewModel {
             }
             }.drive(self.productViewModels)
             .addDisposableTo(disposeBag)
-
-        //TODO reload table
         
     }
 
