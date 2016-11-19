@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct Order {
+struct Order: JSONDecodable {
     let id: Int
     let number: Int?
     let createdAt: Date?
@@ -35,12 +36,26 @@ struct Order {
         self.delieveredAt = delieveredAt
         self.status = status
     }
+
+    init(json: [String : Any]) {
+        let converted = JSON(json["order"])
+        let id = converted["id"].intValue
+        self.id = id
+        self.number = converted["order_number"].int ?? id
+        self.createdAt = ServerDateFormatter.date(from: converted["created_at"].stringValue)!
+        self.priceInCents = converted["price"].intValue
+        self.items = converted["items"].arrayValue.flatMap { $0.dictionaryObject }.map(OrderItem.init)
+        self.fetchIdentifier = converted["fetch_id"].stringValue
+        self.delieveredAt = converted["develivered_at"].string.flatMap(ServerDateFormatter.date(from:))
+        self.status = converted["state"].string.flatMap(OrderStatus.init(rawValue:))!
+    }
+
 }
 
-enum OrderStatus {
-    case pendingPayment
-    case pendingServerPaymentConfirmation
-    case pendingPreperation
-    case ready
-    case delivered
+enum OrderStatus: String {
+    case pendingPayment = "UNPAID"
+    case pendingServerPaymentConfirmation = "pendingPaymentConfirmation"
+    case pendingPreperation = "PENDING"
+    case ready = "READY"
+    case delivered = "DELIVERED"
 }
