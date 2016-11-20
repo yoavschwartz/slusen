@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import RxSwift
 import RxAlamofire
+import Firebase
 
 
 protocol ServerInterface {
@@ -35,7 +36,7 @@ class ServerManager: ServerInterface {
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
-        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: "")).map { (urlResponse, jsonData) -> Order in
+        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)).map { (urlResponse, jsonData) -> Order in
             guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
                 throw RequestError.parsingError
             }
