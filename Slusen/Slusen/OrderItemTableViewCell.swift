@@ -58,19 +58,20 @@ class OrderItemTableViewCell: UITableViewCell {
             let plusButtonBackgroundColor = UIColor(red: 237/255.0, green: 28/255.0, blue: 36/255.0, alpha: 1)
             let minusButtonDisabledBackgroundColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1)
             let plusButtonDisabledBackgroundColor = UIColor(red:0.53, green:0.53, blue:0.53, alpha:1.0)
-            let buttonsTintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
+            let plusButtonTintColor = UIColor.white
+            let minusButtonTintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
             let buttonsDisabledTintColor = UIColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
 
             viewModel.minusButtonEnabled.drive(stepperView.minusButton.rx.isEnabled).addDisposableTo(disposeBag)
             viewModel.minusButtonEnabled.drive(onNext: { [unowned self] enabled in
                 self.stepperView.minusButtonBackgroundColor = enabled ? minusButtonBackgroundColor : minusButtonDisabledBackgroundColor
-                self.stepperView.minusButton.tintColor = enabled ? buttonsTintColor : buttonsDisabledTintColor
+                self.stepperView.minusButton.tintColor = enabled ? minusButtonTintColor : buttonsDisabledTintColor
             }).addDisposableTo(disposeBag)
 
             viewModel.plusButtonEnabled.drive(stepperView.plusButton.rx.isEnabled).addDisposableTo(disposeBag)
             viewModel.plusButtonEnabled.drive(onNext: { [unowned self] enabled in
                 self.stepperView.plusButtonBackgroundColor = enabled ? plusButtonBackgroundColor : plusButtonDisabledBackgroundColor
-                self.stepperView.plusButton.tintColor = enabled ? buttonsTintColor : buttonsDisabledTintColor
+                self.stepperView.plusButton.tintColor = enabled ? plusButtonTintColor : buttonsDisabledTintColor
                 }).addDisposableTo(disposeBag)
 
             viewModel.productName
