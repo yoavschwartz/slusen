@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ActiveOrderCellViewModel {
+class OrderTableViewModel {
     let displayOrderNumber: Driver<String>
     let orderStatusImage: Driver<UIImage>
     let orderStatusText: Driver<String>

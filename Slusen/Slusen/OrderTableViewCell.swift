@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ActiveOrderTableViewCell: UITableViewCell {
+class OrderTableViewCell: UITableViewCell {
 
     @IBOutlet var orderNumberLabel: UILabel!
     @IBOutlet var orderStatusImage: UIImageView!
@@ -28,7 +28,7 @@ class ActiveOrderTableViewCell: UITableViewCell {
     }
 
     var disposeBag: DisposeBag?
-    var viewModel: ActiveOrderCellViewModel? {
+    var viewModel: OrderTableViewModel? {
         didSet {
             let disposeBag = DisposeBag()
 

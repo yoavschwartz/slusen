@@ -20,7 +20,7 @@ class OrdersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.orderViewModels.drive(tableView.rx.items(cellIdentifier: "activeOrderCell", cellType: ActiveOrderTableViewCell.self)) { row, vm, cell in
+        viewModel.orderViewModels.drive(tableView.rx.items(cellIdentifier: "activeOrderCell", cellType: OrderTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
             }.addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
