@@ -59,7 +59,7 @@ class SlusenStepperView: UIView {
         plusButton.setImage(#imageLiteral(resourceName: "plus_button_icon"), for: .normal)
 
         minusButton.tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
-        plusButton.tintColor = UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
+        plusButton.tintColor = .white//UIColor(red: 81/255.0, green: 81/255.0, blue: 81/255.0, alpha: 1.0)
 
 
 

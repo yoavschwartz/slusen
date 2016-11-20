@@ -17,6 +17,7 @@ class OrderItemCellViewModel {
     let productName: Driver<String>
     let productDisplayPrice: Driver<String>
     let productDisplayAmount: Driver<String>
+    let shouldDisplayAmount: Driver<Bool>
     private let _orderItem: Variable<OrderItem>
     var orderItem: Driver<OrderItem> {
         return _orderItem.asDriver()
@@ -49,6 +50,8 @@ class OrderItemCellViewModel {
             return String($0.amount)
             }
 
+        shouldDisplayAmount = _orderItem.asDriver().map({$0.amount > 0})
+
         minusButtonEnabled =    _orderItem.asDriver().map {
             guard $0.product.available else { return false }
             return $0.amount > 0
@@ -58,7 +61,7 @@ class OrderItemCellViewModel {
     }
 
     private static func rowBackgroundColor(row: Int) -> UIColor {
-        let grayValue: CGFloat = (isEven(row) ? 97 : 81)/255.0
+        let grayValue: CGFloat = (isEven(row) ? 52 : 42)/255.0
         return UIColor(red: grayValue, green: grayValue, blue: grayValue, alpha: 1.0)
     }
 

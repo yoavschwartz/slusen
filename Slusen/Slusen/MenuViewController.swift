@@ -21,7 +21,7 @@ class MenuViewController: UIViewController {
     @IBOutlet var bottomButtonContainer: UIView!
     @IBOutlet var makeOrderButton: UIButton!
     @IBOutlet var buttonPriceLabel: UILabel!
-
+    @IBOutlet var buttonAmountLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,17 +29,10 @@ class MenuViewController: UIViewController {
         self.viewModel = MenuViewModel(orderButtonTap: makeOrderButton.rx.tap.asObservable())
         setupOrderButton()
 
-        self.viewModel
-            .viewControllerTitle
-            .drive(self.rx.title)
-            .addDisposableTo(disposeBag)
-
         viewModel.productViewModels.asDriver().drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: OrderItemTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
-
-        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     func setupOrderButton() {
@@ -82,6 +75,10 @@ class MenuViewController: UIViewController {
             .drive(buttonPriceLabel.rx.text)
             .addDisposableTo(disposeBag)
 
+        viewModel.buttonAmountLabelText
+            .drive(buttonAmountLabel.rx.text)
+            .addDisposableTo(disposeBag)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -108,28 +105,3 @@ extension MenuViewController: OnboardingViewControllerDelegate {
         print(name)
     }
 }
-
-
-extension MenuViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44))
-        containerView.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
-        let label = UILabel(frame: CGRect.zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        label.textColor = UIColor.white
-        label.text = "Slusen Menu"
-        label.font = UIFont.systemFont(ofSize: 13)
-
-        containerView.addSubview(label)
-
-        containerView.addConstraint(NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: containerView, attribute: .left, multiplier: 1, constant: 8))
-        containerView.addConstraint(NSLayoutConstraint(item: containerView, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: 4))
-        return containerView
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-}
-
