@@ -22,11 +22,27 @@ public class User {
             UserDefaults.standard.setValue(newValue, forKey: "userName")
         }
     }
+
+    var confirmedOrdersFetchIdentifiers: [String] {
+        return UserDefaults.standard.array(forKey: "confirmedOrdersFetchIdentifiers") as? [String] ?? []
+    }
+
+    func addConfirmedOrder(identifier: String) {
+        var currentOrders = UserDefaults.standard.array(forKey: "confirmedOrdersFetchIdentifiers") ?? []
+        currentOrders.append(identifier)
+        UserDefaults.standard.setValue(currentOrders, forKey: "confirmedOrdersFetchIdentifiers")
+    }
 }
 
 public extension Reactive where Base: User {
     var name: Observable<String?> {
         return UserDefaults.standard.rx.observe(String.self, "userName")
+    }
+
+    var confirmedOrdersFetchIdentifiers: Observable<[String]> {
+        return UserDefaults.standard.rx
+            .observe([String].self, "confirmedOrdersFetchIdentifiers")
+            .map{ $0 ?? [] }
     }
 }
 

@@ -10,17 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OrderViewController: UIViewController {
+class MenuViewController: UIViewController {
 
-
-    @IBOutlet var containerStackView: UIStackView!
 
     @IBOutlet var tableView: UITableView!
-
-    @IBOutlet var activeOrdersTableView: UITableView!
-    @IBOutlet var activeOrdersTableViewHeightConstraint: NSLayoutConstraint!
-    
-    var viewModel: OrderViewModel!
+    var viewModel: MenuViewModel!
 
     let disposeBag = DisposeBag()
 
@@ -32,7 +26,7 @@ class OrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.viewModel = OrderViewModel(orderButtonTap: makeOrderButton.rx.tap.asObservable())
+        self.viewModel = MenuViewModel(orderButtonTap: makeOrderButton.rx.tap.asObservable())
         setupOrderButton()
 
         self.viewModel
@@ -43,35 +37,6 @@ class OrderViewController: UIViewController {
         viewModel.productViewModels.asDriver().drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: OrderItemTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
-
-        //self.tableView.rx.items
-
-        viewModel.orderViewModels.drive(self.activeOrdersTableView.rx.items(cellIdentifier: "activeOrderCell", cellType: ActiveOrderTableViewCell.self)) { row, vm, cell in
-            cell.viewModel = vm
-            }.addDisposableTo(disposeBag)
-
-        viewModel.orderViewModels.map { $0.count }
-            .map { numberOfActiveOrders -> CGFloat in
-            let activeOrderCellHeight: CGFloat = 44
-            let activeOrdersTableviewTopViewHeight: CGFloat = 20
-            let bottomPaddingHeight: CGFloat = 8
-            return (CGFloat(numberOfActiveOrders) * activeOrderCellHeight) + activeOrdersTableviewTopViewHeight + bottomPaddingHeight
-            }.drive(onNext: { [unowned self] height in
-                self.activeOrdersTableViewHeightConstraint.constant = height
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.layoutIfNeeded()
-                })
-            })
-            .addDisposableTo(disposeBag)
-
-        viewModel.showActiveOrdersTable
-            .map {!$0}
-            .drive(onNext: { [unowned self] show in
-                UIView.animate(withDuration: 0.3){
-                    self.activeOrdersTableView.isHidden = show //or false
-                }
-            })
-            .addDisposableTo(disposeBag)
 
         tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
         // Do any additional setup after loading the view, typically from a nib.
@@ -117,7 +82,6 @@ class OrderViewController: UIViewController {
             .drive(buttonPriceLabel.rx.text)
             .addDisposableTo(disposeBag)
 
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -138,7 +102,7 @@ class OrderViewController: UIViewController {
 
 }
 
-extension OrderViewController: OnboardingViewControllerDelegate {
+extension MenuViewController: OnboardingViewControllerDelegate {
     func onboardingViewController(onboarding: OnboardingViewController, didEnterName name: String) {
         dismiss(animated: true, completion: nil)
         print(name)
@@ -146,7 +110,7 @@ extension OrderViewController: OnboardingViewControllerDelegate {
 }
 
 
-extension OrderViewController: UITableViewDelegate {
+extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 44))
         containerView.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
