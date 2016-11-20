@@ -16,6 +16,7 @@ class OrderItemTableViewCell: UITableViewCell {
     @IBOutlet var productPriceLabel: UILabel!
 
     @IBOutlet var rightStackView: UIStackView!
+    @IBOutlet var numberAmountContainer: UIView!
 
     @IBOutlet var productAmountLabel: UILabel!
 
@@ -25,8 +26,8 @@ class OrderItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
         let slusenView = SlusenStepperView(frame: CGRect.zero)
         slusenView.translatesAutoresizingMaskIntoConstraints = false
-        slusenView.addConstraint(NSLayoutConstraint(item: slusenView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 56))
-        slusenView.addConstraint(NSLayoutConstraint(item: slusenView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 96))
+        slusenView.addConstraint(NSLayoutConstraint(item: slusenView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 36))
+        slusenView.addConstraint(NSLayoutConstraint(item: slusenView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80))
 
         rightStackView.insertArrangedSubview(slusenView, at: 0)
 
@@ -75,6 +76,8 @@ class OrderItemTableViewCell: UITableViewCell {
             viewModel.productName
                 .drive(productNameLabel.rx.text)
                 .addDisposableTo(disposeBag)
+
+            viewModel.shouldDisplayAmount.map { $0 ? 1.0 : 0.0 }.drive(numberAmountContainer.rx.alpha).addDisposableTo(disposeBag)
 
             viewModel.productDisplayAmount
                 .drive(productAmountLabel.rx.text)

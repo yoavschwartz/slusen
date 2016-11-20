@@ -28,6 +28,7 @@ class MenuViewModel {
     let productViewModels: Variable<[OrderItemCellViewModel]> = Variable([])
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
+    let buttonAmountLabelText: Driver<String>
     //let reloadProductTable: Driver<Void>
 
     //User Name
@@ -35,11 +36,6 @@ class MenuViewModel {
         .name
         .asDriver(onErrorJustReturn: nil)
         .map { $0 == nil }
-
-    let viewControllerTitle: Driver<String> = User.shared.rx
-            .name
-        .asDriver(onErrorJustReturn: nil)
-            .flatMap { $0.map(Driver.just) ?? Driver.empty() }
 
     private let disposeBag = DisposeBag()
 
@@ -75,6 +71,11 @@ class MenuViewModel {
             return zip(prices, amounts).map { $0.0 * $0.1 }.reduce(0, +)
             }.map { NSNumber(value: Double($0)/100.0)}
             .map({ priceFormatter.string(from: $0)!})
+
+        buttonAmountLabelText = order.asDriver().map { orderItems in
+            let amount = orderItems.map { $0.amount }.reduce(0, +)
+            return String(amount)
+        }
 
         let orderPayment = orderButtonTap.withLatestFrom(order.asObservable()) { (_, order:[OrderItem]) -> [OrderItem] in
             return order
