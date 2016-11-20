@@ -11,6 +11,7 @@
 		E50616EF1DE0CF3B0090FD90 /* ServerDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616EE1DE0CF3B0090FD90 /* ServerDate.swift */; };
 		E50616F21DE117F80090FD90 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616F11DE117F80090FD90 /* OrdersViewController.swift */; };
 		E50616F41DE1180E0090FD90 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616F31DE1180E0090FD90 /* OrderViewModel.swift */; };
+		E50616F61DE219490090FD90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E50616F51DE219490090FD90 /* GoogleService-Info.plist */; };
 		E5158A911DCE1E4000BC791D /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A901DCE1E4000BC791D /* Order.swift */; };
 		E5158A931DCE253C00BC791D /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */; };
 		E5158A951DCE25F300BC791D /* OrderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A941DCE25F300BC791D /* OrderCellViewModel.swift */; };
@@ -30,7 +31,6 @@
 		E59003471DC915AB00E8F692 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59003461DC915AB00E8F692 /* MenuViewModel.swift */; };
 		E5A750101DCC7E6300994CF6 /* SlusenStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7500F1DCC7E6300994CF6 /* SlusenStepperView.swift */; };
 		E5CF5FD81DC92629006137DB /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CF5FD71DC92629006137DB /* OrderItem.swift */; };
-		E5D9C8FD1DC4E2D100888954 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5D9C8FC1DC4E2D100888954 /* GoogleService-Info.plist */; };
 		E5D9C9001DC4F3CB00888954 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C8FF1DC4F3CB00888954 /* ServerManager.swift */; };
 		E5D9C9031DC4F53C00888954 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C9021DC4F53C00888954 /* APIRouter.swift */; };
 		E5D9C9051DC5053900888954 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C9041DC5053900888954 /* Product.swift */; };
@@ -44,6 +44,8 @@
 		E50616EE1DE0CF3B0090FD90 /* ServerDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerDate.swift; sourceTree = "<group>"; };
 		E50616F11DE117F80090FD90 /* OrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		E50616F31DE1180E0090FD90 /* OrderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
+		E50616F51DE219490090FD90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E50616F71DE224480090FD90 /* Slusen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slusen.entitlements; sourceTree = "<group>"; };
 		E5158A901DCE1E4000BC791D /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		E5158A941DCE25F300BC791D /* OrderCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCellViewModel.swift; sourceTree = "<group>"; };
@@ -66,7 +68,6 @@
 		E59003461DC915AB00E8F692 /* MenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		E5A7500F1DCC7E6300994CF6 /* SlusenStepperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlusenStepperView.swift; sourceTree = "<group>"; };
 		E5CF5FD71DC92629006137DB /* OrderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
-		E5D9C8FC1DC4E2D100888954 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5D9C8FF1DC4F3CB00888954 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		E5D9C9021DC4F53C00888954 /* APIRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		E5D9C9041DC5053900888954 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 		E5543F201DC4B84800CB2FD0 /* Slusen */ = {
 			isa = PBXGroup;
 			children = (
+				E50616F71DE224480090FD90 /* Slusen.entitlements */,
 				E5543F211DC4B84800CB2FD0 /* AppDelegate.swift */,
 				E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */,
 				E5543F1F1DC4B84800CB2FD0 /* Products */,
@@ -152,7 +154,7 @@
 				E5543F281DC4B84800CB2FD0 /* Assets.xcassets */,
 				E5543F2A1DC4B84800CB2FD0 /* LaunchScreen.storyboard */,
 				E5543F2D1DC4B84800CB2FD0 /* Info.plist */,
-				E5D9C8FC1DC4E2D100888954 /* GoogleService-Info.plist */,
+				E50616F51DE219490090FD90 /* GoogleService-Info.plist */,
 				E5D9C9061DC5053F00888954 /* Models */,
 				E5D9C9011DC4F3D200888954 /* Server Manager */,
 				E5158A961DCF782F00BC791D /* Slusen-Bridging-Header.h */,
@@ -256,9 +258,14 @@
 				TargetAttributes = {
 					E5543F1D1DC4B84800CB2FD0 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = R8F453AF24;
+						DevelopmentTeam = 554248M85F;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -286,9 +293,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5543F2C1DC4B84800CB2FD0 /* LaunchScreen.storyboard in Resources */,
-				E5D9C8FD1DC4E2D100888954 /* GoogleService-Info.plist in Resources */,
 				E5543F291DC4B84800CB2FD0 /* Assets.xcassets in Resources */,
 				E5543F271DC4B84800CB2FD0 /* Main.storyboard in Resources */,
+				E50616F61DE219490090FD90 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,12 +499,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = R8F453AF24;
+				CODE_SIGN_ENTITLEMENTS = Slusen/Slusen.entitlements;
+				DEVELOPMENT_TEAM = 554248M85F;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Slusen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.slusen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5ba40c39-8f9c-42bf-b660-050073566caf";
+				PROVISIONING_PROFILE_SPECIFIER = "Slusen Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Slusen/Slusen-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -510,7 +520,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = R8F453AF24;
+				CODE_SIGN_ENTITLEMENTS = Slusen/Slusen.entitlements;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Slusen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
