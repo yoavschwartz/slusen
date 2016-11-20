@@ -13,6 +13,8 @@
 		E50616F41DE1180E0090FD90 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616F31DE1180E0090FD90 /* OrderViewModel.swift */; };
 		E50616F61DE219490090FD90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E50616F51DE219490090FD90 /* GoogleService-Info.plist */; };
 		E50616F91DE229A80090FD90 /* OrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50616F81DE229A80090FD90 /* OrderTableViewCell.xib */; };
+		E50616FC1DE23E4A0090FD90 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616FB1DE23E4A0090FD90 /* OrderSummaryViewController.swift */; };
+		E50616FE1DE23E530090FD90 /* OrderSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50616FD1DE23E530090FD90 /* OrderSummaryViewModel.swift */; };
 		E5158A911DCE1E4000BC791D /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A901DCE1E4000BC791D /* Order.swift */; };
 		E5158A931DCE253C00BC791D /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */; };
 		E5158A951DCE25F300BC791D /* OrderCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5158A941DCE25F300BC791D /* OrderCellViewModel.swift */; };
@@ -48,6 +50,8 @@
 		E50616F51DE219490090FD90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E50616F71DE224480090FD90 /* Slusen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slusen.entitlements; sourceTree = "<group>"; };
 		E50616F81DE229A80090FD90 /* OrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderTableViewCell.xib; sourceTree = "<group>"; };
+		E50616FB1DE23E4A0090FD90 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
+		E50616FD1DE23E530090FD90 /* OrderSummaryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewModel.swift; sourceTree = "<group>"; };
 		E5158A901DCE1E4000BC791D /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		E5158A921DCE253C00BC791D /* OrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		E5158A941DCE25F300BC791D /* OrderCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCellViewModel.swift; sourceTree = "<group>"; };
@@ -110,9 +114,17 @@
 			children = (
 				E50616F11DE117F80090FD90 /* OrdersViewController.swift */,
 				E50616F31DE1180E0090FD90 /* OrderViewModel.swift */,
-				E5158A8F1DCE164400BC791D /* Order Tableview Cell */,
 			);
 			name = OrdersViewController;
+			sourceTree = "<group>";
+		};
+		E50616FA1DE23E1D0090FD90 /* OrderSummaryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E50616FB1DE23E4A0090FD90 /* OrderSummaryViewController.swift */,
+				E50616FD1DE23E530090FD90 /* OrderSummaryViewModel.swift */,
+			);
+			name = OrderSummaryViewController;
 			sourceTree = "<group>";
 		};
 		E5158A8F1DCE164400BC791D /* Order Tableview Cell */ = {
@@ -151,7 +163,9 @@
 				E5543F3A1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift */,
 				E5543F1F1DC4B84800CB2FD0 /* Products */,
 				E5543F351DC4CE2B00CB2FD0 /* MenuViewController */,
+				E5158A8F1DCE164400BC791D /* Order Tableview Cell */,
 				E50616F01DE116150090FD90 /* OrdersViewController */,
+				E50616FA1DE23E1D0090FD90 /* OrderSummaryViewController */,
 				E5543F251DC4B84800CB2FD0 /* Main.storyboard */,
 				E5543F361DC4CE3700CB2FD0 /* Onboarding */,
 				E5543F281DC4B84800CB2FD0 /* Assets.xcassets */,
@@ -370,6 +384,7 @@
 				E5A750101DCC7E6300994CF6 /* SlusenStepperView.swift in Sources */,
 				E5158A9C1DCF8B9200BC791D /* PaymentHandler.swift in Sources */,
 				E5543F341DC4CCE400CB2FD0 /* OnboardingViewController.swift in Sources */,
+				E50616FE1DE23E530090FD90 /* OrderSummaryViewModel.swift in Sources */,
 				E5543F3B1DC4DA3800CB2FD0 /* StoryboardHelperMethods.swift in Sources */,
 				E5158A951DCE25F300BC791D /* OrderCellViewModel.swift in Sources */,
 				E50616F21DE117F80090FD90 /* OrdersViewController.swift in Sources */,
@@ -378,6 +393,7 @@
 				E59003411DC9055A00E8F692 /* OrderItemTableViewCell.swift in Sources */,
 				E5158A911DCE1E4000BC791D /* Order.swift in Sources */,
 				E5D9C9001DC4F3CB00888954 /* ServerManager.swift in Sources */,
+				E50616FC1DE23E4A0090FD90 /* OrderSummaryViewController.swift in Sources */,
 				E50616EF1DE0CF3B0090FD90 /* ServerDate.swift in Sources */,
 				E5158A9A1DCF7F2200BC791D /* Payment.swift in Sources */,
 				E5543F381DC4CE6300CB2FD0 /* OnboardingViewModel.swift in Sources */,

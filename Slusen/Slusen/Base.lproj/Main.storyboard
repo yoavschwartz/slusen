@@ -230,10 +230,10 @@
             </objects>
             <point key="canvasLocation" x="597.60000000000002" y="140.77961019490255"/>
         </scene>
-        <!--Orders View Controller-->
+        <!--Summary-->
         <scene sceneID="Dpw-w2-OvW">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="u2o-dE-ieW" customClass="OrdersViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderSummaryViewController" title="Summary" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u2o-dE-ieW" customClass="OrderSummaryViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gB1-g8-0Tl"/>
                         <viewControllerLayoutGuide type="bottom" id="yks-KG-GZi"/>
@@ -242,28 +242,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c67-4D-JYH">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slusen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="53P-7Q-yjX"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c67-4D-JYH">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaJ-f4-glQ" userLabel="payButton">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="EW2-5J-GE6"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Pay with MobilePay" image="MobilePay_icon">
+                                    <color key="titleColor" red="0.0" green="0.21176470588235294" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="c67-4D-JYH" firstAttribute="leading" secondItem="yr7-tM-uTS" secondAttribute="leading" id="3zI-fh-FIq"/>
-                            <constraint firstItem="c67-4D-JYH" firstAttribute="top" secondItem="gB1-g8-0Tl" secondAttribute="bottom" id="MyE-RP-2uK"/>
-                            <constraint firstAttribute="trailing" secondItem="c67-4D-JYH" secondAttribute="trailing" id="f6L-cE-U2o"/>
-                            <constraint firstItem="yks-KG-GZi" firstAttribute="top" secondItem="c67-4D-JYH" secondAttribute="bottom" id="mXo-Hb-iMi"/>
+                            <constraint firstItem="53P-7Q-yjX" firstAttribute="top" secondItem="gB1-g8-0Tl" secondAttribute="bottom" id="4QF-uw-Oxu"/>
+                            <constraint firstItem="yks-KG-GZi" firstAttribute="top" secondItem="ZaJ-f4-glQ" secondAttribute="bottom" constant="8" id="T0w-iO-5Ux"/>
+                            <constraint firstItem="c67-4D-JYH" firstAttribute="top" secondItem="53P-7Q-yjX" secondAttribute="bottom" constant="16" id="TUC-Ch-L2p"/>
+                            <constraint firstItem="c67-4D-JYH" firstAttribute="leading" secondItem="yr7-tM-uTS" secondAttribute="leading" constant="8" id="aFW-f2-HZe"/>
+                            <constraint firstItem="53P-7Q-yjX" firstAttribute="leading" secondItem="yr7-tM-uTS" secondAttribute="leading" id="cgN-nZ-Dac"/>
+                            <constraint firstAttribute="trailing" secondItem="53P-7Q-yjX" secondAttribute="trailing" id="fAb-5T-uSQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZaJ-f4-glQ" secondAttribute="trailing" constant="8" id="hje-tH-fDT"/>
+                            <constraint firstItem="ZaJ-f4-glQ" firstAttribute="top" secondItem="c67-4D-JYH" secondAttribute="bottom" constant="16" id="sfG-eM-1dn"/>
+                            <constraint firstAttribute="trailing" secondItem="c67-4D-JYH" secondAttribute="trailing" constant="8" id="tur-1O-99I"/>
+                            <constraint firstItem="ZaJ-f4-glQ" firstAttribute="leading" secondItem="yr7-tM-uTS" secondAttribute="leadingMargin" constant="8" id="xzE-wU-BCw"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="c67-4D-JYH" id="aPc-Ks-dSb"/>
+                        <outlet property="payButton" destination="ZaJ-f4-glQ" id="kVx-ZC-Jnm"/>
+                        <outlet property="tableView" destination="c67-4D-JYH" id="LPL-95-EdY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kI0-XF-aFM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1495" y="141"/>
+            <point key="canvasLocation" x="1493.5999999999999" y="139.880059970015"/>
         </scene>
     </scenes>
     <resources>
+        <image name="MobilePay_icon" width="26" height="29"/>
         <image name="round_number_container" width="28" height="28"/>
         <image name="slusen_logo" width="375" height="81"/>
     </resources>

@@ -24,6 +24,9 @@ class OrderTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        for view in itemsContainerStackView.subviews {
+            itemsContainerStackView.removeArrangedSubview(view)
+        }
         // Initialization code
     }
 
@@ -34,7 +37,7 @@ class OrderTableViewCell: UITableViewCell {
     }
 
     var disposeBag: DisposeBag?
-    var viewModel: OrderTableViewModel? {
+    var viewModel: OrderCellViewModel? {
         didSet {
             let disposeBag = DisposeBag()
 
@@ -69,6 +72,7 @@ class OrderTableViewCell: UITableViewCell {
 
     func orderItemView(from displayInfo: OrderItemDisplayInfo) -> UIView {
         let orderItemView = UIView()
+        orderItemView.backgroundColor = displayInfo.backgroundColor
         orderItemView.translatesAutoresizingMaskIntoConstraints = false
         orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40))
 
@@ -90,13 +94,22 @@ class OrderTableViewCell: UITableViewCell {
         orderItemView.addSubview(itemAmountLabel)
         orderItemView.addSubview(itemAmountIcon)
 
+        //image and amount together
         orderItemView.addConstraint(NSLayoutConstraint(item: itemAmountLabel, attribute: .centerX, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerX, multiplier: 1, constant: 0))
         orderItemView.addConstraint(NSLayoutConstraint(item: itemAmountLabel, attribute: .centerY, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerY, multiplier: 1, constant: 0))
 
+        //center y
+        orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .centerY, relatedBy: .equal, toItem: itemNameLabel, attribute: .centerY, multiplier: 1, constant: 0))
+        orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .centerY, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerY, multiplier: 1, constant: 0))
+
+        //left right margins
+        orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .left, relatedBy: .equal, toItem: itemNameLabel, attribute: .left, multiplier: 1, constant: 16))
+        orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .right, relatedBy: .equal, toItem: itemAmountIcon, attribute: .right, multiplier: 1, constant: 16))
 
 
-        let viewsDict: [String: UIView] = ["nameLabel": itemNameLabel, "amountIcon": itemAmountIcon]
-        orderItemView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-16-[nameLabel]->=0-[amountIcon]-16-|", options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: viewsDict))
+
+
+
 
         return orderItemView
     }

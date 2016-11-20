@@ -14,12 +14,12 @@ class OrdersViewModel {
 
     //Active orders
     fileprivate let activeOrders: Variable<[Order]> = Variable([])
-    let orderViewModels: Driver<[OrderTableViewModel]>
+    let orderViewModels: Driver<[OrderCellViewModel]>
     let showActiveOrdersTable: Driver<Bool>
 
 
     init() {
-        orderViewModels = activeOrders.asDriver().map { $0.map(OrderTableViewModel.init) }
+        orderViewModels = activeOrders.asDriver().map { $0.map(OrderCellViewModel.init) }
         showActiveOrdersTable = activeOrders.asDriver().map { !$0.isEmpty }
     }
 }

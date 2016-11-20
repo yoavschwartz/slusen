@@ -89,6 +89,10 @@ class MenuViewController: UIViewController {
                 let onboardingVC = OnboardingViewController.initViewController(delegate: self)
                 self.present(onboardingVC, animated: true, completion: nil)
             }).addDisposableTo(disposeBag)
+
+        viewModel.navigateToViewController.drive(onNext: { [unowned self] vc in
+            self.show(vc, sender: self)
+        }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

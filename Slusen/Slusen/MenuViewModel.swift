@@ -21,7 +21,6 @@ let priceFormatter: NumberFormatter = { _ -> NumberFormatter in
 class MenuViewModel {
 
     var serverManager: ServerInterface = ServerManager.sharedInstance
-    var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 
     //Current order
     fileprivate let order: Variable<[OrderItem]> = Variable([])
@@ -29,7 +28,9 @@ class MenuViewModel {
     let showOrderButton: Driver<Bool>
     let buttonPriceLabelText: Driver<String>
     let buttonAmountLabelText: Driver<String>
-    //let reloadProductTable: Driver<Void>
+
+    //Navigation
+    let navigateToViewController: Driver<UIViewController>
 
     //User Name
     let shouldShowOnbaording: Driver<Bool> = User.shared.rx
@@ -77,49 +78,13 @@ class MenuViewModel {
             return String(amount)
         }
 
-        let orderPayment = orderButtonTap.withLatestFrom(order.asObservable()) { (_, order:[OrderItem]) -> [OrderItem] in
-            return order
-            }
-            .flatMapLatest { [unowned self] orderItems in
-                self.serverManager.placeOrder(items: orderItems)
-                .flatMap(self.payOrder)
-                .catchError { _ in Observable.empty() }
-            }
-        .shareReplayLatestWhileConnected()
-
-        orderPayment
+        navigateToViewController = orderButtonTap
+            .withLatestFrom(order.asObservable())
             .asDriver(onErrorDriveWith: Driver.empty())
-            .drive(onNext: {
-                guard let fetchId = $0.fetchIdentifier else { return }
-                User.shared.addConfirmedOrder(identifier: fetchId)
-            })
-            .addDisposableTo(disposeBag)
-
-        orderPayment.map { _ in return () }.asDriver(onErrorJustReturn: ())
-            .withLatestFrom(products) { (_, currentProducts) -> [OrderItemCellViewModel] in
-            return Array(currentProducts.enumerated()).map { offset, prod in
-                let orderItem = OrderItem(product: prod, amount: 0)
-                return OrderItemCellViewModel(orderItem: orderItem, row: offset)
-            }
-            }.drive(self.productViewModels)
-            .addDisposableTo(disposeBag)
-        
-    }
-
-    func payOrder(order: Order) -> Observable<Order> {
-        guard let price = order.priceInCents else { preconditionFailure("Should not get here with a product without a price") }
-
-        let priceInKr = Float(price)/100.0
-
-        return self.paymentHandler
-            .makePayment(orderID: String(order.id), productPrice: priceInKr)
-            .do(onNext: { payment in
-                //TODO:
-                //save order with payment token
-            })
-            .flatMap { [unowned self] payment -> Observable<Order> in
-                return self.serverManager.payOrder(order: order, transactionID: payment.transactionId)
+            .map { orderItems -> OrderSummaryViewController in
+                OrderSummaryViewController.instantiate(orderItems: orderItems)
         }
+
         
     }
 

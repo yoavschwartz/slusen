@@ -12,7 +12,7 @@ import RxCocoa
 
 typealias OrderItemDisplayInfo = (nameText: String, amountText: String, backgroundColor: UIColor)
 
-class OrderTableViewModel {
+class OrderCellViewModel {
     let displayOrderNumber: Driver<String>
     let orderStatusImage: Driver<UIImage>
     let orderStatusText: Driver<String>
