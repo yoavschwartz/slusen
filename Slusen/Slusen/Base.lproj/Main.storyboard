@@ -257,20 +257,6 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="U0k-l4-ZGP">
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created at: 20:34, 28.10.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auG-s0-E1x">
-                                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed at: 20:34, 28.10.2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syu-pX-6Jp">
-                                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iyl-S7-ryJ" userLabel="Top Seperator">
                                                     <color key="backgroundColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -316,14 +302,12 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="kFf-wR-Z2O" secondAttribute="trailing" id="5t7-iD-C2t"/>
                                                 <constraint firstItem="9Ps-zu-1Oo" firstAttribute="leading" secondItem="Dhs-Me-3q1" secondAttribute="leading" constant="8" id="9Qp-cg-lOh"/>
                                                 <constraint firstItem="Iyl-S7-ryJ" firstAttribute="trailing" secondItem="Dhs-Me-3q1" secondAttribute="trailingMargin" id="D0b-2p-DCb"/>
-                                                <constraint firstItem="U0k-l4-ZGP" firstAttribute="top" secondItem="Dhs-Me-3q1" secondAttribute="top" constant="4" id="X7Q-2d-gvP"/>
                                                 <constraint firstItem="kFf-wR-Z2O" firstAttribute="leading" secondItem="Dhs-Me-3q1" secondAttribute="leadingMargin" id="Zzs-sK-emq"/>
                                                 <constraint firstItem="OEz-xv-QgT" firstAttribute="leading" secondItem="Dhs-Me-3q1" secondAttribute="leadingMargin" id="dDA-kn-BHm"/>
                                                 <constraint firstAttribute="bottom" secondItem="7J2-pV-naw" secondAttribute="bottom" constant="8.5" id="eME-rT-vPv"/>
                                                 <constraint firstItem="OEz-xv-QgT" firstAttribute="top" secondItem="Dhs-Me-3q1" secondAttribute="topMargin" id="ed6-XX-n7H"/>
                                                 <constraint firstAttribute="trailing" secondItem="9Ps-zu-1Oo" secondAttribute="trailing" constant="8" id="f6z-ms-cN7"/>
                                                 <constraint firstItem="Iyl-S7-ryJ" firstAttribute="top" secondItem="OEz-xv-QgT" secondAttribute="bottom" constant="16" id="iQG-qT-Znw"/>
-                                                <constraint firstAttribute="trailing" secondItem="U0k-l4-ZGP" secondAttribute="trailing" constant="8" id="lYX-nU-N1E"/>
                                                 <constraint firstItem="Iyl-S7-ryJ" firstAttribute="leading" secondItem="Dhs-Me-3q1" secondAttribute="leadingMargin" id="mFB-Nf-kLj"/>
                                                 <constraint firstItem="7J2-pV-naw" firstAttribute="top" secondItem="9Ps-zu-1Oo" secondAttribute="bottom" constant="8" id="rKj-1h-Ote"/>
                                                 <constraint firstItem="9Ps-zu-1Oo" firstAttribute="top" secondItem="kFf-wR-Z2O" secondAttribute="bottom" constant="8" id="ygd-w0-z84"/>
