@@ -16,7 +16,7 @@ class OrderSummaryViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var payButton: UIButton! {
         didSet {
-            viewModel.payButtonTap = payButton.rx.tap.asObservable()
+            viewModel.bindPayButtonTap(payButton.rx.tap.asObservable())
         }
     }
 
@@ -42,6 +42,11 @@ class OrderSummaryViewController: UIViewController {
             .drive(tableView.rx.items(cellIdentifier: "OrderCell", cellType: OrderTableViewCell.self)) { _, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
+
+        viewModel.orderSuccess.drive(onNext: { [weak self] _ in
+            _ = self?.navigationController?.popToRootViewController(animated: true)
+            (self?.sideMenuViewController as? SideMenuBaseViewController)?.showViewController(index: 1, animated: true)
+        }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

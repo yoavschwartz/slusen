@@ -36,6 +36,8 @@ class ServerManager: ServerInterface {
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
+//        let router = APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)
+//        print(Alamofire.request(router, method: router.method, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers).debugDescription)
         return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)).map { (urlResponse, jsonData) -> Order in
             guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
                 throw RequestError.parsingError

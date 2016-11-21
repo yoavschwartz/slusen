@@ -124,13 +124,13 @@
 			name = OrdersViewController;
 			sourceTree = "<group>";
 		};
-		E50616FA1DE23E1D0090FD90 /* OrderSummaryViewController */ = {
+		E50616FA1DE23E1D0090FD90 /* SummaryViewController */ = {
 			isa = PBXGroup;
 			children = (
 				E50616FB1DE23E4A0090FD90 /* OrderSummaryViewController.swift */,
 				E50616FD1DE23E530090FD90 /* OrderSummaryViewModel.swift */,
 			);
-			name = OrderSummaryViewController;
+			name = SummaryViewController;
 			sourceTree = "<group>";
 		};
 		E50616FF1DE33CC30090FD90 /* SideMenu */ = {
@@ -182,7 +182,7 @@
 				E5543F351DC4CE2B00CB2FD0 /* MenuViewController */,
 				E5158A8F1DCE164400BC791D /* Order Tableview Cell */,
 				E50616F01DE116150090FD90 /* OrdersViewController */,
-				E50616FA1DE23E1D0090FD90 /* OrderSummaryViewController */,
+				E50616FA1DE23E1D0090FD90 /* SummaryViewController */,
 				E5543F251DC4B84800CB2FD0 /* Main.storyboard */,
 				E5543F361DC4CE3700CB2FD0 /* Onboarding */,
 				E5543F281DC4B84800CB2FD0 /* Assets.xcassets */,
