@@ -78,6 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension Notification.Name {
+    static let orderStatusChange = Notification.Name("OrderStatusChange")
+}
+
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
 
@@ -91,6 +95,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print full message.
         print("%@", userInfo)
 
+        NotificationCenter.default.post(name: .orderStatusChange, object: nil)
     }
 
 }

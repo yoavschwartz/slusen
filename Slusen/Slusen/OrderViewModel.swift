@@ -12,8 +12,6 @@ import RxCocoa
 
 class OrdersViewModel {
 
-    let fetchIdentifiers = User.shared.rx.confirmedOrdersFetchIdentifiers
-
     //Active orders
     let orderViewModels: Driver<[OrderCellViewModel]>
 
@@ -21,7 +19,14 @@ class OrdersViewModel {
 
 
     init() {
-        self.orderViewModels = fetchIdentifiers
+
+        let notificationObserver = NotificationCenter.default.rx.notification(.orderStatusChange).withLatestFrom(User.shared.rx.confirmedOrdersFetchIdentifiers)
+        let fetchIdentifiersObserver = User.shared.rx.confirmedOrdersFetchIdentifiers
+
+
+
+        self.orderViewModels = Observable.of(notificationObserver, fetchIdentifiersObserver)
+            .merge()
             .flatMapLatest { identifiers in
                 return ServerManager.sharedInstance.getOrders(fetchIdentifiers: identifiers).catchErrorJustReturn([])
             }
