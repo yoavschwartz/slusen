@@ -40,7 +40,6 @@ PODS:
   - RxCocoa (3.0.0):
     - RxSwift (~> 3.0)
   - RxSwift (3.0.0)
-  - SideMenu (2.0.6)
   - SwiftyJSON (3.1.0)
 
 DEPENDENCIES:
@@ -52,7 +51,6 @@ DEPENDENCIES:
   - RxAlamofire (~> 3.0)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
-  - SideMenu
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -70,9 +68,8 @@ SPEC CHECKSUMS:
   RxAlamofire: 0b1fa48f545fffe7f7a28af2086bcaa3b5946cc9
   RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
   RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
-  SideMenu: 90be7a14e9f54eb528f96f2033aa54f2992c5667
   SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
 
-PODFILE CHECKSUM: 1dea36e7baecda2f55cae1518a3a2b836e33806d
+PODFILE CHECKSUM: 02d8fee83855479364f00fd84dc506a9fc582e6e
 
 COCOAPODS: 1.1.1

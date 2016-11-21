@@ -10,7 +10,7 @@
         <!--Navigation Controller-->
         <scene sceneID="f5i-qV-g2c">
             <objects>
-                <navigationController id="pwg-ke-1vP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MenuViewController" id="pwg-ke-1vP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3yd-3W-3yF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -21,7 +21,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rz8-Hj-Msr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-169" y="116"/>
+            <point key="canvasLocation" x="-175" y="140"/>
         </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="gTf-VW-Sab">
@@ -90,12 +90,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDM-MT-qvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597.60000000000002" y="-591.45427286356824"/>
+            <point key="canvasLocation" x="1494" y="-628"/>
         </scene>
         <!--Slusen Menu-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="MenuViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MenuViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -179,14 +179,20 @@
                             <constraint firstAttribute="trailing" secondItem="JPg-i9-NSr" secondAttribute="trailing" id="foD-1Y-1wz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Slusen Menu" id="WVg-Dg-RfT"/>
+                    <navigationItem key="navigationItem" title="Slusen Menu" id="WVg-Dg-RfT">
+                        <barButtonItem key="leftBarButtonItem" image="hamburger_menu_icon" id="uvh-55-Kdl">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="sideMenuButtonPressed:" destination="BYZ-38-t0r" id="DC2-HY-lHr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomButtonContainer" destination="Pvz-K8-uo5" id="Fp8-z0-Urx"/>
                         <outlet property="buttonAmountLabel" destination="Afd-A3-Mdn" id="gZy-1e-hLG"/>
                         <outlet property="buttonPriceLabel" destination="WSO-db-TS5" id="DXJ-np-mLA"/>
                         <outlet property="makeOrderButton" destination="xMD-iR-5rf" id="bOn-4d-L7Y"/>
                         <outlet property="tableView" destination="JPg-i9-NSr" id="BXA-Oe-Io9"/>
-                        <segue destination="u2o-dE-ieW" kind="show" id="BJf-vm-5rl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -228,7 +234,63 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="597.60000000000002" y="140.77961019490255"/>
+            <point key="canvasLocation" x="663" y="140"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="weE-ga-Nbo">
+            <objects>
+                <navigationController id="apz-S5-Oaa" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ygo-fl-mzh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="q0D-lU-ojO" kind="relationship" relationship="rootViewController" id="dMb-bQ-uCW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ia1-xs-0kD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-198" y="1004"/>
+        </scene>
+        <!--Orders View Controller-->
+        <scene sceneID="PtD-kB-K3T">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="q0D-lU-ojO" customClass="OrdersViewController" customModule="Slusen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L4F-ju-0Xu"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z49-kX-lfh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b34-at-koP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ToG-OO-kfy">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ToG-OO-kfy" firstAttribute="top" secondItem="L4F-ju-0Xu" secondAttribute="bottom" id="0wB-qi-wzg"/>
+                            <constraint firstItem="Z49-kX-lfh" firstAttribute="top" secondItem="ToG-OO-kfy" secondAttribute="bottom" id="7Ls-fl-0uF"/>
+                            <constraint firstItem="ToG-OO-kfy" firstAttribute="leading" secondItem="b34-at-koP" secondAttribute="leading" id="baa-UL-WWz"/>
+                            <constraint firstAttribute="trailing" secondItem="ToG-OO-kfy" secondAttribute="trailing" id="rzv-BS-UhX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UKb-4b-4Jh">
+                        <barButtonItem key="leftBarButtonItem" image="hamburger_menu_icon" id="gsF-lu-cDf">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="sideMenuButtonPressed:" destination="q0D-lU-ojO" id="GV0-ZY-KQR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="ToG-OO-kfy" id="Zwe-pf-zcT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="59f-5S-BlN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="726" y="1004"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Dpw-w2-OvW">
@@ -283,6 +345,7 @@
     </scenes>
     <resources>
         <image name="MobilePay_icon" width="26" height="29"/>
+        <image name="hamburger_menu_icon" width="25" height="18"/>
         <image name="round_number_container" width="28" height="28"/>
         <image name="slusen_logo" width="375" height="81"/>
     </resources>

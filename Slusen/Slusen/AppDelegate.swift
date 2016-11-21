@@ -11,6 +11,7 @@ import Firebase
 import FirebaseMessaging
 import UserNotifications
 import RxSwift
+import SideMenu
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         MobilePayManager.sharedInstance().setup(withMerchantId: "APPDK0000000000", merchantUrlScheme: "slusen", country: MobilePayCountry.denmark)
+
+
 
         return true
     }
