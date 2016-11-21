@@ -28,6 +28,8 @@ class OrderSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        payButton.layer.cornerRadius = 4
+
         tableView.register(UINib.init(nibName: "OrderTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120

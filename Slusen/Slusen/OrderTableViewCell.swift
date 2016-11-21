@@ -24,9 +24,8 @@ class OrderTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        for view in itemsContainerStackView.subviews {
-            itemsContainerStackView.removeArrangedSubview(view)
-        }
+        self.layer.cornerRadius = 4
+        self.layer.masksToBounds = true
         // Initialization code
     }
 
@@ -87,13 +86,12 @@ class OrderTableViewCell: UITableViewCell {
         itemAmountLabel.font = UIFont.systemFont(ofSize: 14)
         itemAmountLabel.text = displayInfo.amountText
 
-        let itemAmountIcon: UIImageView = UIImageView(image: #imageLiteral(resourceName: "round_number_container"))
+        let itemAmountIcon: UIImageView = UIImageView(image: #imageLiteral(resourceName: "round_number_container_gray"))
         itemAmountIcon.translatesAutoresizingMaskIntoConstraints = false
 
         orderItemView.addSubview(itemNameLabel)
-        orderItemView.addSubview(itemAmountLabel)
         orderItemView.addSubview(itemAmountIcon)
-
+        orderItemView.addSubview(itemAmountLabel)
         //image and amount together
         orderItemView.addConstraint(NSLayoutConstraint(item: itemAmountLabel, attribute: .centerX, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerX, multiplier: 1, constant: 0))
         orderItemView.addConstraint(NSLayoutConstraint(item: itemAmountLabel, attribute: .centerY, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerY, multiplier: 1, constant: 0))
@@ -103,7 +101,7 @@ class OrderTableViewCell: UITableViewCell {
         orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .centerY, relatedBy: .equal, toItem: itemAmountIcon, attribute: .centerY, multiplier: 1, constant: 0))
 
         //left right margins
-        orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .left, relatedBy: .equal, toItem: itemNameLabel, attribute: .left, multiplier: 1, constant: 16))
+        orderItemView.addConstraint(NSLayoutConstraint(item: itemNameLabel, attribute: .leading, relatedBy: .equal, toItem: orderItemView, attribute: .leading, multiplier: 1, constant: 16))
         orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .right, relatedBy: .equal, toItem: itemAmountIcon, attribute: .right, multiplier: 1, constant: 16))
 
 

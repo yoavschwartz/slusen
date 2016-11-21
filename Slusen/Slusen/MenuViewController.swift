@@ -32,6 +32,10 @@ class MenuViewController: UIViewController {
         viewModel.productViewModels.asDriver().drive(self.tableView.rx.items(cellIdentifier: "productCell", cellType: OrderItemTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
+
+        viewModel.navigateToViewController.drive(onNext: { [unowned self] vc in
+            self.show(vc, sender: self)
+            }).addDisposableTo(disposeBag)
         
     }
 
@@ -89,10 +93,6 @@ class MenuViewController: UIViewController {
                 let onboardingVC = OnboardingViewController.initViewController(delegate: self)
                 self.present(onboardingVC, animated: true, completion: nil)
             }).addDisposableTo(disposeBag)
-
-        viewModel.navigateToViewController.drive(onNext: { [unowned self] vc in
-            self.show(vc, sender: self)
-        }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {

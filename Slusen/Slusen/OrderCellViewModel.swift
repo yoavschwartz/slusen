@@ -69,12 +69,14 @@ extension OrderStatus {
 
     var backgroundColor: UIColor {
         switch self {
-        case .delivered:
-            return UIColor(red:0.61, green:0.61, blue:0.61, alpha:1.0)
-        case .pendingPayment, .pendingServerPaymentConfirmation, .pendingPreperation:
+        case .pendingPayment:
+            return UIColor(red:0.65, green:0.00, blue:0.00, alpha:1.0)
+        case .pendingServerPaymentConfirmation, .pendingPreperation:
             return UIColor(red:0.79, green:0.71, blue:0.07, alpha:1.0)
         case .ready:
             return UIColor(red:0.58, green:0.79, blue:0.07, alpha:1.0)
+        case .delivered:
+            return UIColor(red:0.61, green:0.61, blue:0.61, alpha:1.0)
         }
     }
 }
