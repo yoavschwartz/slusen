@@ -14,7 +14,7 @@ target 'Slusen' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'MobilePay-AppSwitch-SDK'
-
+    pod 'RESideMenu'
   # Pods for Slusen
 
 end

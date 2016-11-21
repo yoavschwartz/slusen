@@ -45,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         MobilePayManager.sharedInstance().setup(withMerchantId: "APPDK0000000000", merchantUrlScheme: "slusen", country: MobilePayCountry.denmark)
 
+
+
         return true
     }
 

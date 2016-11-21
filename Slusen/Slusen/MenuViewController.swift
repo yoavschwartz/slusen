@@ -95,6 +95,15 @@ class MenuViewController: UIViewController {
             }).addDisposableTo(disposeBag)
     }
 
+    @IBAction func sideMenuButtonPressed(_ sender: AnyObject) {
+        showSideMenu(sender: self)
+    }
+
+    deinit {
+        print("MenuViewControllerDeinited")
+    }
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -102,6 +111,8 @@ class MenuViewController: UIViewController {
 
 
 }
+
+extension MenuViewController: SideMenuShower {}
 
 extension MenuViewController: OnboardingViewControllerDelegate {
     func onboardingViewController(onboarding: OnboardingViewController, didEnterName name: String) {

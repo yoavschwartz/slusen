@@ -32,6 +32,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - MBProgressHUD (1.0.0)
   - MobilePay-AppSwitch-SDK (1.8.0)
+  - RESideMenu (4.0.7)
   - RxAlamofire (3.0.0):
     - RxAlamofire/Core (= 3.0.0)
   - RxAlamofire/Core (3.0.0):
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - MBProgressHUD
   - MobilePay-AppSwitch-SDK
+  - RESideMenu
   - RxAlamofire (~> 3.0)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
@@ -65,11 +67,12 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MobilePay-AppSwitch-SDK: 3c7d0bd3629b6ef5d6fd42be631836f8fbf1932a
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   RxAlamofire: 0b1fa48f545fffe7f7a28af2086bcaa3b5946cc9
   RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
   RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
   SwiftyJSON: 29b9f2a64f118c07e691667c2ba1efe536acfe0b
 
-PODFILE CHECKSUM: d722b99ac1bf86338bae1a497648b84d4b1eada3
+PODFILE CHECKSUM: 3a0d93a5155a13c87b46b3a4b91cdab413287749
 
 COCOAPODS: 1.1.1

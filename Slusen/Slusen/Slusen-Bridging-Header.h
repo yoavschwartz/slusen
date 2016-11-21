@@ -6,3 +6,4 @@
 #import "MobilePay-AppSwitch-SDK/MobilePayPayment.h"
 #import "MobilePay-AppSwitch-SDK/MobilePayCancelledPayment.h"
 #import "MobilePay-AppSwitch-SDK/MobilePaySuccessfulPayment.h"
+#import "RESideMenu/RESideMenu.h"
