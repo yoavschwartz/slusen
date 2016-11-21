@@ -22,10 +22,12 @@ class OrderTableViewCell: UITableViewCell {
 
     @IBOutlet var itemsContainerStackView: UIStackView!
     
+    @IBOutlet var containerView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layer.cornerRadius = 4
-        self.layer.masksToBounds = true
+        containerView.layer.cornerRadius = 4
+        containerView.layer.masksToBounds = true
         // Initialization code
     }
 
@@ -71,6 +73,10 @@ class OrderTableViewCell: UITableViewCell {
         super.prepareForReuse()
         self.viewModel = nil
         disposeBag = nil
+        for arrangedView in itemsContainerStackView.arrangedSubviews {
+            itemsContainerStackView.removeArrangedSubview(arrangedView)
+            arrangedView.removeFromSuperview()
+        }
     }
 
     func orderItemView(from displayInfo: OrderItemDisplayInfo) -> UIView {
@@ -107,11 +113,6 @@ class OrderTableViewCell: UITableViewCell {
         //left right margins
         orderItemView.addConstraint(NSLayoutConstraint(item: itemNameLabel, attribute: .leading, relatedBy: .equal, toItem: orderItemView, attribute: .leading, multiplier: 1, constant: 16))
         orderItemView.addConstraint(NSLayoutConstraint(item: orderItemView, attribute: .right, relatedBy: .equal, toItem: itemAmountIcon, attribute: .right, multiplier: 1, constant: 16))
-
-
-
-
-
 
         return orderItemView
     }

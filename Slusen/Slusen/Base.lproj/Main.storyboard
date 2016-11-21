@@ -359,16 +359,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ToG-OO-kfy">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ToG-OO-kfy">
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ToG-OO-kfy" firstAttribute="top" secondItem="L4F-ju-0Xu" secondAttribute="bottom" id="0wB-qi-wzg"/>
+                            <constraint firstItem="ToG-OO-kfy" firstAttribute="top" secondItem="L4F-ju-0Xu" secondAttribute="bottom" constant="16" id="0wB-qi-wzg"/>
                             <constraint firstItem="Z49-kX-lfh" firstAttribute="top" secondItem="ToG-OO-kfy" secondAttribute="bottom" id="7Ls-fl-0uF"/>
-                            <constraint firstItem="ToG-OO-kfy" firstAttribute="leading" secondItem="b34-at-koP" secondAttribute="leading" id="baa-UL-WWz"/>
-                            <constraint firstAttribute="trailing" secondItem="ToG-OO-kfy" secondAttribute="trailing" id="rzv-BS-UhX"/>
+                            <constraint firstItem="ToG-OO-kfy" firstAttribute="leading" secondItem="b34-at-koP" secondAttribute="leading" constant="8" id="baa-UL-WWz"/>
+                            <constraint firstAttribute="trailing" secondItem="ToG-OO-kfy" secondAttribute="trailing" constant="8" id="rzv-BS-UhX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UKb-4b-4Jh">

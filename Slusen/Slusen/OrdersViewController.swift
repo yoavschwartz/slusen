@@ -16,23 +16,25 @@ class OrdersViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
 //    let viewModel: OrdersViewModel = OrdersViewModel()
 //    let disposeBag = DisposeBag()
+    let viewModel = OrdersViewModel()
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        viewModel.orderViewModels.drive(tableView.rx.items(cellIdentifier: "activeOrderCell", cellType: OrderTableViewCell.self)) { row, vm, cell in
-//            cell.viewModel = vm
-//            }.addDisposableTo(disposeBag)
+        tableView.register(UINib.init(nibName: "OrderTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderCell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+
+        viewModel.orderViewModels.drive(tableView.rx.items(cellIdentifier: "OrderCell", cellType:  OrderTableViewCell.self)) { row, vm, cell in
+            cell.viewModel = vm
+            }.addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    deinit {
-        print("OrdersViewControllerDeinited")
     }
 
     @IBAction func sideMenuButtonPressed(_ sender: AnyObject) {

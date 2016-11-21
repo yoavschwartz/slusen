@@ -12,14 +12,23 @@ import RxCocoa
 
 class OrdersViewModel {
 
+    let fetchIdentifiers = User.shared.rx.confirmedOrdersFetchIdentifiers
+
     //Active orders
-    fileprivate let activeOrders: Variable<[Order]> = Variable([])
     let orderViewModels: Driver<[OrderCellViewModel]>
-    let showActiveOrdersTable: Driver<Bool>
+
+    let disposeBag = DisposeBag()
 
 
     init() {
-        orderViewModels = activeOrders.asDriver().map { $0.map(OrderCellViewModel.init) }
-        showActiveOrdersTable = activeOrders.asDriver().map { !$0.isEmpty }
+        self.orderViewModels = fetchIdentifiers
+            .flatMapLatest { identifiers in
+                return ServerManager.sharedInstance.getOrders(fetchIdentifiers: identifiers).catchErrorJustReturn([])
+            }
+            .map { (newOrders: [Order]) in
+                newOrders.filter { $0.status != .delivered }
+            }
+            .map { $0.map(OrderCellViewModel.init(order:)) }
+            .asDriver(onErrorJustReturn: [])
     }
 }
