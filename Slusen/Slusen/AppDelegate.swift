@@ -11,7 +11,6 @@ import Firebase
 import FirebaseMessaging
 import UserNotifications
 import RxSwift
-import SideMenu
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

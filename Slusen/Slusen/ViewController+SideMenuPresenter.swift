@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SideMenu
+import RESideMenu
 
 
 protocol SideMenuShower {
@@ -17,5 +17,6 @@ protocol SideMenuShower {
 
 extension SideMenuShower where Self:UIViewController {
     func showSideMenu(sender: Any?) {
+        self.sideMenuViewController.presentLeftMenuViewController()
     }
 }
