@@ -17,6 +17,7 @@ class OrderCellViewModel {
     let orderStatusImage: Driver<UIImage>
     let orderStatusText: Driver<String>
     let orderStatusBackgroundColor: Driver<UIColor>
+    let orderTotalPriceText: Driver<String>
     let orderItemsDisplayInfo: Driver<[OrderItemDisplayInfo]>
 
     init(order: Order) {
@@ -26,6 +27,11 @@ class OrderCellViewModel {
         orderStatusImage = Driver.just(order.status.image)
         orderStatusText = Driver.just(order.status.text)
         orderStatusBackgroundColor = Driver.just(order.status.backgroundColor)
+
+        orderTotalPriceText = Driver.just(order).map { currentOrder in
+            let price = Double(currentOrder.items.map { $0.product.priceInCents }.reduce(0, +)) / 100.0
+            return priceFormatter.string(from: NSNumber(value: price))!
+        }
 
         let evenCellColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
         let oddCellColor = UIColor(red:0.87, green:0.87, blue:0.87, alpha:1.0)

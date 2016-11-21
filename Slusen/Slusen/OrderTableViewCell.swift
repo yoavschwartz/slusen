@@ -58,6 +58,10 @@ class OrderTableViewCell: UITableViewCell {
                 }
             }).addDisposableTo(disposeBag)
 
+            viewModel.orderTotalPriceText
+                .drive(totalPriceLabel.rx.text)
+                .addDisposableTo(disposeBag)
+
             self.disposeBag = disposeBag
 
         }
