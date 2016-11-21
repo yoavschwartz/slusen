@@ -29,7 +29,7 @@ class OrderCellViewModel {
         orderStatusBackgroundColor = Driver.just(order.status.backgroundColor)
 
         orderTotalPriceText = Driver.just(order).map { currentOrder in
-            let price = Double(currentOrder.items.map { $0.product.priceInCents }.reduce(0, +)) / 100.0
+            let price = Double(currentOrder.items.map { $0.product.priceInCents * $0.amount }.reduce(0, +)) / 100.0
             return priceFormatter.string(from: NSNumber(value: price))!
         }
 

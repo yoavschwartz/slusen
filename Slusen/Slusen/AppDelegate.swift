@@ -82,6 +82,10 @@ extension Notification.Name {
     static let orderStatusChange = Notification.Name("OrderStatusChange")
 }
 
+//TODO: Handle notification when not in the app
+//TODO: Black toolbar tint
+//TODO: cancel spinning
+
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
 

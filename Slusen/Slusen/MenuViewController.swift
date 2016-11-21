@@ -25,9 +25,6 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //TODO: add refresh controller
-        //TODO: refresh on view will appear
         //TODO: clean view on order
 
 
