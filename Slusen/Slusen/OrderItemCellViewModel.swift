@@ -61,7 +61,7 @@ class OrderItemCellViewModel {
     }
 
     private static func rowBackgroundColor(row: Int) -> UIColor {
-        let grayValue: CGFloat = (isEven(row) ? 52 : 42)/255.0
+        let grayValue: CGFloat = (row.isEven ? 52 : 42)/255.0
         return UIColor(red: grayValue, green: grayValue, blue: grayValue, alpha: 1.0)
     }
 
@@ -78,6 +78,8 @@ class OrderItemCellViewModel {
     }
 }
 
-fileprivate func isEven(_ num: Int)-> Bool {
-    return num % 2 == 0
+extension Int {
+    var isEven: Bool {
+    return self % 2 == 0
+    }
 }
