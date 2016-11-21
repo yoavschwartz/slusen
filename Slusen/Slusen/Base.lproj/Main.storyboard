@@ -105,7 +105,7 @@
         <!--Navigation Controller-->
         <scene sceneID="f5i-qV-g2c">
             <objects>
-                <navigationController storyboardIdentifier="MenuViewController" id="pwg-ke-1vP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MenuNavigationController" id="pwg-ke-1vP" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3yd-3W-3yF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -334,7 +334,7 @@
         <!--Navigation Controller-->
         <scene sceneID="weE-ga-Nbo">
             <objects>
-                <navigationController id="apz-S5-Oaa" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="OrderNavigatoinController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="apz-S5-Oaa" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ygo-fl-mzh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

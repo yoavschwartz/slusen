@@ -12,16 +12,39 @@ import RESideMenu
 class SideMenuBaseViewController: RESideMenu {
 
 
+    var viewControllers: [UIViewController?] = Array(repeating: nil, count: 2)
+
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.scaleContentView = false
         self.scaleMenuView = true
         self.contentViewShadowOpacity = 1.0
         self.contentViewShadowRadius = 6.0
-        //self.contentViewShadowOffset = 5.0
         self.contentViewShadowEnabled = true
-        self.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController")
         self.leftMenuViewController = self.storyboard?.instantiateViewController(withIdentifier: "LeftMenuViewController")
+        self.showViewController(index: 0, animated: false)
     }
+
+    func showViewController(index: Int, animated: Bool) {
+        if let vc = viewControllers[index] {
+            self.setContentViewController(vc, animated: animated)
+            self.completelyDifferentName()
+            return
+        }
+
+        var newVC: UIViewController
+        switch index {
+        case 0: newVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuNavigationController")
+        case 1: newVC = self.storyboard!.instantiateViewController(withIdentifier: "OrderNavigatoinController")
+        default: fatalError()
+        }
+
+        viewControllers[index] = newVC
+        setContentViewController(newVC, animated: animated)
+        self.completelyDifferentName()
+    }
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

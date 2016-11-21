@@ -146,6 +146,10 @@
 {
     [self hideMenuViewControllerAnimated:YES];
 }
+- (void)completelyDifferentName
+{
+    [self hideMenuViewControllerAnimated:YES];
+}
 
 - (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated
 {

@@ -11,6 +11,7 @@ import UIKit
 class LeftMenuViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
+    
 
 
     override func viewDidLoad() {
@@ -55,5 +56,10 @@ extension LeftMenuViewController: UITableViewDelegate, UITableViewDataSource {
         default: fatalError()
         }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        (self.sideMenuViewController as! SideMenuBaseViewController).showViewController(index: indexPath.row, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

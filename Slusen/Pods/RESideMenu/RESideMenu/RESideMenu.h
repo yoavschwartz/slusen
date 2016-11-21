@@ -79,6 +79,7 @@
 - (void)presentLeftMenuViewController;
 - (void)presentRightMenuViewController;
 - (void)hideMenuViewController;
+- (void)completelyDifferentName;
 - (void)setContentViewController:(UIViewController *)contentViewController animated:(BOOL)animated;
 
 @end
