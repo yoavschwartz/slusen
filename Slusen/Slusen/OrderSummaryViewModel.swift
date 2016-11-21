@@ -15,6 +15,8 @@ class OrderSummaryViewModel {
     fileprivate let _orderItems: Variable<[OrderItem]>
     let orderCellViewModels: Driver<[OrderCellViewModel]>
 
+    var payButtonTap: Observable<Void>?
+
     var serverManager: ServerInterface = ServerManager.sharedInstance
     var paymentHandler: PaymentHandler = UIApplication.shared.delegate as! AppDelegate
 

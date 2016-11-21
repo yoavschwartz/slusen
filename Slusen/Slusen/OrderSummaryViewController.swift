@@ -14,7 +14,11 @@ class OrderSummaryViewController: UIViewController {
 
 
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var payButton: UIButton!
+    @IBOutlet var payButton: UIButton! {
+        didSet {
+            viewModel.payButtonTap = payButton.rx.tap.asObservable()
+        }
+    }
 
     var viewModel: OrderSummaryViewModel!
     let disposeBag = DisposeBag()
