@@ -19,6 +19,7 @@ class OrdersViewModel {
 
 
     init() {
+        //TODO: Refresh on viewWillAppear
 
         let notificationObserver = NotificationCenter.default.rx.notification(.orderStatusChange).withLatestFrom(User.shared.rx.confirmedOrdersFetchIdentifiers)
         let fetchIdentifiersObserver = User.shared.rx.confirmedOrdersFetchIdentifiers
