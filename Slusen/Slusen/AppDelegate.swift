@@ -22,6 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
+
+        if launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary != nil {
+            if let controller = self.window?.rootViewController as? SideMenuBaseViewController {
+                controller.showViewController(index: 1, animated: false)
+            }
+        }
+
+
         // Override point for customization after application launch.
 
         if #available(iOS 10.0, *) {
@@ -76,13 +84,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleMobilePayment(url: url)
         return true
     }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+        if ( application.applicationState == .inactive || application.applicationState == .background  )
+        {
+            if let controller = self.window?.rootViewController as? SideMenuBaseViewController {
+                controller.showViewController(index: 1, animated: false)
+            }
+        }
+    }
 }
 
 extension Notification.Name {
     static let orderStatusChange = Notification.Name("OrderStatusChange")
 }
 
-//TODO: Handle notification when not in the app
+//TODO: Talk to dima about content-available: true
 
 
 @available(iOS 10, *)

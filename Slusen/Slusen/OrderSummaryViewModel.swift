@@ -71,8 +71,7 @@ class OrderSummaryViewModel {
         return self.paymentHandler
             .makePayment(orderID: String(order.id), productPrice: priceInKr)
             .do(onNext: { payment in
-                //TODO:
-                //save order with payment token
+                //TODO: save order with payment token
             })
             .flatMap { [unowned self] payment -> Observable<Order> in
                 return self.serverManager.payOrder(order: order, transactionID: payment.transactionId)
