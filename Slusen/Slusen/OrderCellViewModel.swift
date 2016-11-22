@@ -21,8 +21,8 @@ class OrderCellViewModel {
     let orderItemsDisplayInfo: Driver<[OrderItemDisplayInfo]>
 
     init(order: Order) {
-        displayOrderNumber = Driver.just(order.number).map {
-            $0.map(String.init) ?? ""
+        displayOrderNumber = Driver.just(order.number).map { num in
+            num.map({"#\($0)"}) ?? ""
         }
         orderStatusImage = Driver.just(order.status.image)
         orderStatusText = Driver.just(order.status.text)

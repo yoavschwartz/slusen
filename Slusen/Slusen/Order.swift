@@ -39,9 +39,8 @@ struct Order: JSONDecodable {
 
     init(json: [String : Any]) {
         let converted = JSON(json)
-        let id = converted["id"].intValue
-        self.id = id
-        self.number = converted["order_number"].int ?? id
+        self.id = converted["id"].intValue
+        self.number = converted["order_number"].intValue
         self.createdAt = ServerDateFormatter.date(from: converted["created_at"].stringValue)!
         self.priceInCents = converted["total_price"].intValue
         self.items = converted["items"].arrayValue.flatMap { $0.dictionaryObject }.map(OrderItem.init)

@@ -84,7 +84,9 @@ extension Notification.Name {
 
 //TODO: Handle notification when not in the app
 //TODO: Black toolbar tint
-//TODO: cancel spinning
+//TODO: Use number instead of ID
+//TODO: Left Menu Color
+//TODO: Name menu color
 
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
