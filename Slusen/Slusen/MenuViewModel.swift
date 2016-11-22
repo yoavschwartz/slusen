@@ -29,6 +29,11 @@ class MenuViewModel {
     let buttonPriceLabelText: Driver<String>
     let buttonAmountLabelText: Driver<String>
 
+    let orderStatusUpdate: Driver<Void> = NotificationCenter.default
+        .rx.notification(.orderStatusChange, object: nil)
+        .asDriver(onErrorDriveWith: Driver.empty())
+        .map { _ in return () }
+
     //Navigation
     let navigateToViewController: Driver<UIViewController>
 

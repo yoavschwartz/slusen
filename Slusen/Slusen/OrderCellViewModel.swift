@@ -63,11 +63,11 @@ extension OrderStatus {
     var text: String {
         switch self {
         case .pendingPayment:
-            return "New Order"
+            return "Order Summary"
         case .pendingServerPaymentConfirmation, .pendingPreperation:
-            return "Pending"
+            return "Being Prepared..."
         case .ready:
-            return "Ready"
+            return "Ready For Pickup!"
         case .delivered:
             return "Delivered"
         }

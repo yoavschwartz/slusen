@@ -41,6 +41,24 @@ class MenuViewController: UIViewController {
         
     }
 
+    var orderNotificationSubscription: Disposable?
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        orderNotificationSubscription = viewModel.orderStatusUpdate.drive(onNext: { [weak self] in
+            let alertView = UIAlertController(title: "Order Update!", message: "Go to My Orders?", preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertView.addAction(UIAlertAction(title: "My Orders", style: .default) { _ in
+                (self?.sideMenuViewController as? SideMenuBaseViewController)?.showViewController(index: 1, animated: true)
+            })
+            self?.present(alertView, animated: true, completion: nil)
+        })
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        orderNotificationSubscription?.dispose()
+    }
+
     func setupOrderButton() {
 
         view.addSubview(bottomButtonContainer)
