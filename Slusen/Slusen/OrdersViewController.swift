@@ -14,15 +14,27 @@ class OrdersViewController: UIViewController {
 
 
     @IBOutlet var tableView: UITableView!
-//    let viewModel: OrdersViewModel = OrdersViewModel()
-//    let disposeBag = DisposeBag()
-    let viewModel = OrdersViewModel()
+
+    var viewModel:  OrdersViewModel!
+    let viewWillAppearSubject: PublishSubject<Void> = PublishSubject()
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //TODO: Add refresh controller
+        let refreshController = UIRefreshControl()
+        let refreshObservable: Observable<Void> = refreshController.rx.controlEvent(.valueChanged)
+            .map { _ in return () }
+            .asObservable()
+        self.viewModel = OrdersViewModel(viewWillAppear: viewWillAppearSubject.asObservable(),
+                                         refreshControlEvent: refreshObservable)
+
+        tableView.addSubview(refreshController)
+
+        viewModel.loadingData
+            .filter { $0 == false }
+            .drive(refreshController.rx.refreshing)
+            .addDisposableTo(disposeBag)
 
         tableView.register(UINib.init(nibName: "OrderTableViewCell", bundle: nil), forCellReuseIdentifier: "OrderCell")
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -32,6 +44,11 @@ class OrdersViewController: UIViewController {
             cell.viewModel = vm
             }.addDisposableTo(disposeBag)
         // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppearSubject.onNext()
     }
 
     override func didReceiveMemoryWarning() {

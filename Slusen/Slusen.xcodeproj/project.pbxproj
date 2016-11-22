@@ -41,6 +41,7 @@
 		E5D9C9031DC4F53C00888954 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C9021DC4F53C00888954 /* APIRouter.swift */; };
 		E5D9C9051DC5053900888954 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C9041DC5053900888954 /* Product.swift */; };
 		E5D9C9081DC5062200888954 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9C9071DC5062200888954 /* JSONDecodable.swift */; };
+		E5FD30B11DE4F00F00E6AEDB /* RxActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FD30B01DE4F00F00E6AEDB /* RxActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		E5D9C9021DC4F53C00888954 /* APIRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		E5D9C9041DC5053900888954 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		E5D9C9071DC5062200888954 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
+		E5FD30B01DE4F00F00E6AEDB /* RxActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 				E5D9C9061DC5053F00888954 /* Models */,
 				E5D9C9011DC4F3D200888954 /* Server Manager */,
 				E5158A961DCF782F00BC791D /* Slusen-Bridging-Header.h */,
+				E5FD30B01DE4F00F00E6AEDB /* RxActivityIndicator.swift */,
 			);
 			path = Slusen;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				E5D9C9031DC4F53C00888954 /* APIRouter.swift in Sources */,
 				E5D9C9051DC5053900888954 /* Product.swift in Sources */,
 				E5CF5FD81DC92629006137DB /* OrderItem.swift in Sources */,
+				E5FD30B11DE4F00F00E6AEDB /* RxActivityIndicator.swift in Sources */,
 				E50617031DE33FE00090FD90 /* ViewController+SideMenuPresenter.swift in Sources */,
 				E59003471DC915AB00E8F692 /* MenuViewModel.swift in Sources */,
 				E5543F241DC4B84800CB2FD0 /* MenuViewController.swift in Sources */,
