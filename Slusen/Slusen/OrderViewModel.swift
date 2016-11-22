@@ -28,6 +28,10 @@ class OrdersViewModel {
 
         let viewAppearing = viewWillAppear.withLatestFrom(User.shared.rx.confirmedOrdersFetchIdentifiers)
 
+        viewAppearing.subscribe(onNext: {
+            _ in UIApplication.shared.applicationIconBadgeNumber = 0
+        }).addDisposableTo(disposeBag)
+
         let notificationObserver = NotificationCenter.default.rx.notification(.orderStatusChange).withLatestFrom(User.shared.rx.confirmedOrdersFetchIdentifiers)
         let fetchIdentifiersObserver = User.shared.rx.confirmedOrdersFetchIdentifiers
 
