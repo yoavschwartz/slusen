@@ -40,6 +40,15 @@ class OrdersViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
 
+        viewModel.orderViewModels
+            .drive(onNext: {_ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.tableView.reloadData()
+                }
+                }
+            )
+            .addDisposableTo(disposeBag)
+
         viewModel.orderViewModels.drive(tableView.rx.items(cellIdentifier: "OrderCell", cellType:  OrderTableViewCell.self)) { row, vm, cell in
             cell.viewModel = vm
             }.addDisposableTo(disposeBag)

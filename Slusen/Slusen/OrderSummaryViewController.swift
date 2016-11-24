@@ -23,9 +23,9 @@ class OrderSummaryViewController: UIViewController {
     var viewModel: OrderSummaryViewModel!
     let disposeBag = DisposeBag()
 
-    static func instantiate(orderItems: [OrderItem]) -> OrderSummaryViewController {
+    static func instantiate(viewModel: OrderSummaryViewModel) -> OrderSummaryViewController {
         let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OrderSummaryViewController") as! OrderSummaryViewController
-        vc.viewModel = OrderSummaryViewModel(orderItems: orderItems)
+        vc.viewModel = viewModel
         return vc
     }
 
@@ -42,27 +42,10 @@ class OrderSummaryViewController: UIViewController {
             .drive(tableView.rx.items(cellIdentifier: "OrderCell", cellType: OrderTableViewCell.self)) { _, vm, cell in
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
-
-        viewModel.orderSuccess.drive(onNext: { [weak self] _ in
-            _ = self?.navigationController?.popToRootViewController(animated: true)
-            (self?.sideMenuViewController as? SideMenuBaseViewController)?.showViewController(index: 1, animated: true)
-        }).addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

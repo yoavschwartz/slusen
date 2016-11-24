@@ -27,7 +27,7 @@ class ServerManager: ServerInterface {
     let disposeBag = DisposeBag()
 
     func getProducts() -> Observable<[Product]> {
-        return requestJSON(router: APIRouter.getProducts).map { (urlResponse, jsonData) -> [Product] in
+        return requestJSON(router: APIRouter.getProducts).map { (response, jsonData) -> [Product] in
             guard let json = jsonData as? [String: Any],
             let prodcuts = json["products"] as? [[String: Any]]
                 else { throw RequestError.parsingError }
@@ -36,9 +36,7 @@ class ServerManager: ServerInterface {
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
-//        let router = APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)
-//        print(Alamofire.request(router, method: router.method, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers).debugDescription)
-        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)).map { (urlResponse, jsonData) -> Order in
+        return requestJSON(router: APIRouter.placeOrder(order: items, userName: User.shared.name ?? "", fcmToken: FIRInstanceID.instanceID().token()!)).map { (response, jsonData) -> Order in
             guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any]  else {
                 throw RequestError.parsingError
             }
@@ -47,7 +45,7 @@ class ServerManager: ServerInterface {
     }
 
     func payOrder(order: Order, transactionID: String) -> Observable<Order> {
-        return requestJSON(router: .payOrder(orderID: order.id, paymentID: transactionID)).map { (urlResponse, jsonData) -> Order in
+        return requestJSON(router: .payOrder(orderID: order.id, paymentID: transactionID)).map { (response, jsonData) -> Order in
             guard let json = jsonData as? [String: Any], let orderJSON = json["order"] as? [String: Any] else {
                 throw RequestError.parsingError
             }
@@ -56,7 +54,7 @@ class ServerManager: ServerInterface {
     }
 
     func getOrders(fetchIdentifiers: [String]) -> Observable<[Order]> {
-        return requestJSON(router: .getOrders(fetchIdentifiers: fetchIdentifiers)).map { (urlResponse, jsonData) -> [Order] in
+        return requestJSON(router: .getOrders(fetchIdentifiers: fetchIdentifiers)).map { (response, jsonData) -> [Order] in
             guard let json = jsonData as? [String: Any], let orders = json["orders"] as? [[String: Any]] else {
                 throw RequestError.parsingError
             }
@@ -66,10 +64,43 @@ class ServerManager: ServerInterface {
 
 }
 
-enum RequestError: Error {
-    case parsingError
+fileprivate func requestJSON(router: APIRouter) -> Observable<(HTTPURLResponse, Any)> {
+
+    return RxAlamofire.request(router.method, router, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers)
+        .flatMap { request in
+            return request
+                .rx.responseData()
+        }
+        .flatMap { (response, data) -> Observable<(HTTPURLResponse, Any)> in
+            if response.statusCode >= 200 && response.statusCode < 300 {
+                return Observable.just((response,
+                                        try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())))
+            }
+
+            let errorMessage = (try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())).flatMap({
+                return ($0 as? [String: Any])?["error"] as? String
+            }) ?? ""
+
+            return Observable.error(RequestError.httpError(code: response.statusCode, errorMessage: errorMessage))
+        }
+        .observeOn(MainScheduler.instance)
 }
 
-fileprivate func requestJSON(router: APIRouter) -> Observable<(HTTPURLResponse, Any)> {
-    return RxAlamofire.requestJSON(router.method, router, parameters: router.result.parameters, encoding: router.encoding, headers: router.headers)
+enum RequestError: Error, CustomStringConvertible {
+    case parsingError
+    case httpError(code: Int, errorMessage: String)
+
+    var description: String {
+        switch self {
+        case .parsingError: return "Server parsing error"
+        case let .httpError(code, message): return "HTTP error: \(code)\n \(message)"
+
+        }
+    }
+}
+
+extension RequestError: LocalizedError {
+    public var errorDescription: String? {
+        return self.description
+    }
 }

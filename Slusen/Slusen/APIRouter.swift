@@ -10,7 +10,8 @@ import Foundation
 import Alamofire
 
 enum APIRouter: URLConvertible, CustomStringConvertible {
-    static let baseURLString: String = "http://www.tritian.com/p3/api"
+
+    static let baseURLString: String = "https://slusen.herokuapp.com/api"
 
     case getProducts
     case getOrders(fetchIdentifiers: [String])

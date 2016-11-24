@@ -29,13 +29,18 @@ class MenuViewModel {
     let buttonPriceLabelText: Driver<String>
     let buttonAmountLabelText: Driver<String>
 
+    fileprivate let _orderFinishedSuccess: PublishSubject<Bool> = PublishSubject()
+    var orderFinishedSuccess: Driver<Bool> {
+        return _orderFinishedSuccess.asDriver(onErrorDriveWith: Driver.empty())
+    }
+
     let orderStatusUpdate: Driver<Void> = NotificationCenter.default
         .rx.notification(.orderStatusChange, object: nil)
         .asDriver(onErrorDriveWith: Driver.empty())
         .map { _ in return () }
 
     //Navigation
-    let navigateToViewController: Driver<UIViewController>
+    var navigateToViewController: Driver<UIViewController>? = nil
 
     //User Name
     let shouldShowOnbaording: Driver<Bool> = User.shared.rx
@@ -47,7 +52,12 @@ class MenuViewModel {
 
     init(orderButtonTap: Observable<Void>) {
         //Current order
-        let products = self.serverManager.getProducts().retry(3).asDriver(onErrorJustReturn: [])
+
+        let firstProducts = self.serverManager.getProducts().retry(3)
+        let refreshProducts = _orderFinishedSuccess.asObservable()
+            .flatMap { _ in ServerManager.sharedInstance.getProducts().retry(3)}
+
+        let products = Observable.of(firstProducts, refreshProducts).merge().asDriver(onErrorJustReturn: [])
         products.map { (prods: [Product]) -> [OrderItemCellViewModel] in
             Array(prods.enumerated()).map { offset, prod in
                 let orderItem = OrderItem(product: prod, amount: 0)
@@ -87,10 +97,20 @@ class MenuViewModel {
             .withLatestFrom(order.asObservable())
             .asDriver(onErrorDriveWith: Driver.empty())
             .map { orderItems -> OrderSummaryViewController in
-                OrderSummaryViewController.instantiate(orderItems: orderItems)
+                OrderSummaryViewController.instantiate(viewModel: OrderSummaryViewModel(orderItems: orderItems, delegate: self))
         }
 
         
     }
 
+}
+
+extension MenuViewModel: OrderSummaryDelegate {
+    func orderSuccessful() {
+        _orderFinishedSuccess.onNext(true)
+    }
+
+    func orderCancelled() {
+        _orderFinishedSuccess.onNext(false)
+    }
 }
