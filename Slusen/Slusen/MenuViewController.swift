@@ -35,9 +35,16 @@ class MenuViewController: UIViewController {
             cell.viewModel = vm
         }.addDisposableTo(disposeBag)
 
-        viewModel.navigateToViewController.drive(onNext: { [unowned self] vc in
+        viewModel.navigateToViewController?.drive(onNext: { [unowned self] vc in
             self.show(vc, sender: self)
             }).addDisposableTo(disposeBag)
+
+        viewModel.orderFinishedSuccess.drive(onNext: { [weak self] success in
+            _ = self?.navigationController?.popToRootViewController(animated: true)
+            if success {
+                (self?.sideMenuViewController as? SideMenuBaseViewController)?.showViewController(index: 1, animated: true)
+            }
+        }).addDisposableTo(disposeBag)
         
     }
 
