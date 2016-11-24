@@ -39,7 +39,6 @@ class OrdersViewModel {
 
         self.orderViewModels = Observable.of(notificationObserver, fetchIdentifiersObserver, refresh, viewAppearing)
             .merge()
-            .debug()
             .flatMapLatest { identifiers in
                 return ServerManager.sharedInstance.getOrders(fetchIdentifiers: identifiers).catchErrorJustReturn([]).trackActivity(fetch)
             }
