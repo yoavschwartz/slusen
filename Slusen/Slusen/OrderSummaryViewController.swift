@@ -38,6 +38,10 @@ class OrderSummaryViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
 
+        viewModel.payButtonEnabled
+            .drive(self.payButton.rx.isEnabled)
+            .addDisposableTo(disposeBag)
+
         viewModel.orderCellViewModels
             .drive(tableView.rx.items(cellIdentifier: "OrderCell", cellType: OrderTableViewCell.self)) { _, vm, cell in
             cell.viewModel = vm

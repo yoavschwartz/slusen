@@ -14,6 +14,8 @@ class OrderSummaryViewModel {
 
     fileprivate let _orderItems: Variable<[OrderItem]>
     let orderCellViewModels: Driver<[OrderCellViewModel]>
+    fileprivate let orderActivityIndicator = ActivityIndicator()
+    var payButtonEnabled: Driver<Bool> { return orderActivityIndicator.asDriver().map(!) }
 
     fileprivate var payButtonTap: Observable<Void>?
 
@@ -60,6 +62,8 @@ class OrderSummaryViewModel {
             User.shared.addConfirmedOrder(identifier: fetchIdentifier)
             self?.delegate?.orderSuccessful()
         }).addDisposableTo(disposeBag)
+
+
     }
 
     func placeOrder(items: [OrderItem]) -> Observable<Order> {
